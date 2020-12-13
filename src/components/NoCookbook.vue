@@ -14,8 +14,16 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
+import { defineComponent } from 'vue';
+
 import Cookbook from '@/services/Cookbook';
 
-const createCookbook = () => Cookbook.create();
+export default defineComponent({
+    methods: {
+        createCookbook() {
+            Cookbook.create();
+        },
+    },
+});
 </script>

@@ -14,8 +14,16 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent } from 'vue';
+
 import Ramen from '@/services/Ramen';
 
-const learnToMakeRamen = () => Ramen.learnRecipe();
+export default defineComponent({
+    methods: {
+        learnToMakeRamen() {
+            Ramen.learnRecipe();
+        },
+    },
+});
 </script>

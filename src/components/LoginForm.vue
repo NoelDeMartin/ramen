@@ -32,14 +32,20 @@
     </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue';
+<script lang="ts">
+import { defineComponent, ref, onMounted } from 'vue';
 
 import Auth from '@/services/Auth';
 
-const podUrl = ref('https://');
-const input = ref();
-const submit = () => Auth.login(podUrl.value);
+export default defineComponent({
+    setup() {
+        const podUrl = ref('https://');
+        const input = ref();
+        const submit = () => Auth.login(podUrl.value);
 
-onMounted(() => input.value.focus());
+        onMounted(() => (input.value as HTMLInputElement).focus());
+
+        return { podUrl, input, submit };
+    },
+});
 </script>

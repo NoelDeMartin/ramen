@@ -9,8 +9,16 @@
     </button>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
+import { defineComponent } from 'vue';
+
 import Auth from '@/services/Auth';
 
-const logout = () => Auth.logout();
+export default defineComponent({
+    methods: {
+        logout() {
+            Auth.logout();
+        },
+    },
+});
 </script>
