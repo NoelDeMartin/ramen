@@ -1,4 +1,4 @@
-import { after, Storage, urlBase, PromisedValue } from '@noeldemartin/utils';
+import { after, Storage, PromisedValue } from '@noeldemartin/utils';
 import { Session } from '@inrupt/solid-client-authn-browser';
 import { SolidEngine } from 'soukai-solid';
 import Soukai from 'soukai';
@@ -44,12 +44,14 @@ class Auth {
         this._ready.resolve();
     }
 
-    public async login(oidcIssuer: string): Promise<void> {
+    public async login(identityProvider: string): Promise<void> {
         if (this.isLoggedIn)
             return;
 
+        Storage.set('user', { identityProvider });
+
         await this.session.login({
-            oidcIssuer,
+            oidcIssuer: identityProvider,
             redirectUrl: window.location.href,
         });
 
@@ -57,7 +59,7 @@ class Auth {
         // if we're still here after 5 seconds something went wrong.
         await after({ seconds: 5 });
 
-        throw new Error(`There was an error logging in to ${oidcIssuer}`);
+        throw new Error(`There was an error logging in to ${identityProvider}`);
     }
 
     public logout(): void {
@@ -74,16 +76,15 @@ class Auth {
         const info = await this.session.handleIncomingRedirect(window.location.href);
 
         if (info?.isLoggedIn) {
-            Storage.set('user', { webId: info.webId });
             Soukai.useEngine(new SolidEngine(this.fetch.bind(this)));
 
             return;
         }
 
         if (Storage.has('user')) {
-            const { webId } = Storage.get('user', { webId: '' });
+            const { identityProvider } = Storage.get('user', { identityProvider: '' });
 
-            await this.login(urlBase(webId));
+            await this.login(identityProvider);
 
             return;
         }

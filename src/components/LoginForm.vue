@@ -15,7 +15,7 @@
                     <input
                         id="pod-url"
                         ref="input"
-                        v-model="podUrl"
+                        v-model="identityProvider"
                         class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-solid-500 focus:border-solid-500 focus:z-10 sm:text-sm"
                         required
                         placeholder="Solid POD url"
@@ -39,13 +39,13 @@ import Auth from '@/services/Auth';
 
 export default defineComponent({
     setup() {
-        const podUrl = ref('https://');
+        const identityProvider = ref('https://');
         const input = ref();
-        const submit = () => Auth.login(podUrl.value);
+        const submit = () => Auth.login(identityProvider.value);
 
         onMounted(() => (input.value as HTMLInputElement).focus());
 
-        return { podUrl, input, submit };
+        return { identityProvider, input, submit };
     },
 });
 </script>
