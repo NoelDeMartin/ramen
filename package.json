@@ -14,7 +14,7 @@
     "n3": "^1.6.4",
     "rdf-js": "^1.0.2",
     "soukai": "^0.4.0",
-    "soukai-solid": "^0.4.0",
+    "soukai-solid": "^0.4.0-dev.87a8327a857c833f62f24914b62d2ef1b2c1978d",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
     "vue": "^3.0.4"
   },
