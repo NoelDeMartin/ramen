@@ -8,7 +8,7 @@ class DPoPAuthenticator extends Authenticator {
     private session: Session = new Session();
 
     public get fetch(): Fetch {
-        return this.session.fetch as unknown as Fetch;
+        return this.session.fetch.bind(this.session) as unknown as Fetch;
     }
 
     public async boot(): Promise<void> {

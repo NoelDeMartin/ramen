@@ -6,7 +6,7 @@ import Authenticator from '@/authentication/Authenticator';
 class LegacyAuthenticator extends Authenticator {
 
     public get fetch(): Fetch {
-        return SolidAuthClient.fetch.bind(SolidAuthClient);
+        return SolidAuthClient.fetch.bind(SolidAuthClient) as unknown as Fetch;
     }
 
     public async boot(): Promise<void> {
