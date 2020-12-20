@@ -1,13 +1,11 @@
 <template>
-    <footer class="fixed bottom-0 left-0 right-0 flex justify-center p-4">
+    <footer class="flex items-center justify-center p-4 space-x-1 text-sm text-gray-700">
         <a
-            href="https://github.com/noeldemartin/ramen"
+            href="https://github.com/noeldemartin/ramen#what-is-this"
             target="_blank"
-            class="text-sm text-gray-700 underline hover:text-gray-900"
+            class="underline hover:text-gray-900"
         >
-            source
+            what is this?
         </a>
-        <!-- Emojis by Twitter: https://github.com/twitter/twemoji/ -->
-        <!-- Icons by Heroicons: https://heroicons.com/ -->
     </footer>
 </template>

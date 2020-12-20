@@ -1,18 +1,26 @@
 <template>
-    <div class="flex flex-col items-center justify-center w-screen h-screen p-10 text-base antialiased font-normal leading-tight text-gray-900 font-ubuntu bg-yellow-50">
-        <span v-if="isLoading" class="text-5xl">Loading...</span>
-
-        <template v-else>
-            <LoginForm v-if="!isLoggedIn" />
+    <div class="flex flex-col items-center w-screen h-screen overflow-auto text-base antialiased font-normal leading-tight text-gray-900 bg-yellow-50 font-ubuntu">
+        <div class="flex items-center self-stretch justify-center flex-grow p-10">
+            <h1 v-if="isLoading" class="text-5xl text-center">
+                Loading...
+            </h1>
 
             <template v-else>
-                <NoCookbook v-if="!isCookbookAvailable" />
-                <NoRamen v-else-if="!ramen" />
-                <Ramen v-else :ramen="ramen" />
+                <h1 v-if="errorMessage" class="overflow-hidden text-3xl text-center text-red-600 overflow-ellipsis">
+                    Error: {{ errorMessage }}
+                </h1>
 
-                <LogoutButton v-if="isLoggedIn" />
+                <template v-else-if="isLoggedIn">
+                    <NoCookbook v-if="!isCookbookAvailable" />
+                    <NoRamen v-else-if="!ramen" />
+                    <Ramen v-else :ramen="ramen" />
+
+                    <LogoutButton />
+                </template>
+
+                <LoginForm v-else />
             </template>
-        </template>
+        </div>
 
         <AppFooter />
     </div>
@@ -39,6 +47,7 @@ type Data = {
     isLoggedIn: boolean;
     isCookbookAvailable: boolean;
     ramen: Recipe | null;
+    errorMessage: string | null;
 };
 
 export default defineComponent({
@@ -56,18 +65,26 @@ export default defineComponent({
         isLoggedIn: false,
         isCookbookAvailable: false,
         ramen: null,
+        errorMessage: null,
     }),
     async created() {
-        await Promise.all([
-            Auth.start(),
-            Cookbook.start(),
-            Ramen.start(),
-        ]);
+        try {
+            await Promise.all([
+                Auth.start(),
+                Cookbook.start(),
+                Ramen.start(),
+            ]);
 
-        Cookbook.loaded.then(() => this.isCookbookAvailable = true);
-        Ramen.loaded.then(() => this.ramen = Ramen.model);
-        this.isLoggedIn = Auth.isLoggedIn;
-        this.isLoading = false;
+            Cookbook.loaded.then(() => this.isCookbookAvailable = true);
+            Ramen.loaded.then(() => this.ramen = Ramen.model);
+        } catch (error) {
+            console.error(error);
+
+            this.errorMessage = error.message;
+        } finally {
+            this.isLoggedIn = Auth.isLoggedIn;
+            this.isLoading = false;
+        }
     },
 });
 </script>

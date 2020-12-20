@@ -37,7 +37,7 @@ class Cookbook {
             throw new Error('You already have a cookbook!');
 
         const profile = await Auth.profile as UserProfile;
-        const model = await CookbookModel.at(profile.storageUrl).create<CookbookModel>({ name: 'Cookbook' });
+        const model = await CookbookModel.at(profile.storageUrls[0]).create<CookbookModel>({ name: 'Cookbook' });
 
         this._model.resolve(model);
 
@@ -51,9 +51,9 @@ class Cookbook {
             instanceContainer: model.url,
         });
 
-        typeRegistration.mintUrl(profile.typeIndexUrl, true, uuid());
+        typeRegistration.mintUrl(profile.privateTypeIndexUrl, true, uuid());
 
-        await typeRegistration.save(profile.typeIndexUrl);
+        await typeRegistration.save(profile.privateTypeIndexUrl);
     }
 
     private async loadModel(): Promise<void> {
@@ -77,7 +77,7 @@ class Cookbook {
 
     private async readCookbookUrl(): Promise<string | null> {
         const profile = await Auth.profile as UserProfile;
-        const store = await RDFStore.fromUrl(Auth.fetch.bind(Auth), profile.typeIndexUrl);
+        const store = await RDFStore.fromUrl(Auth.fetch, profile.privateTypeIndexUrl);
         const cookbookType = store
             .statements(null, 'rdfs:type', 'solid:TypeRegistration')
             .find(

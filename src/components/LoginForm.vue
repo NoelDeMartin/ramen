@@ -1,6 +1,6 @@
 <template>
-    <div class="w-full max-w-md space-y-8">
-        <div>
+    <div class="w-full max-w-md space-y-6">
+        <div class="flex flex-col items-center">
             <a href="https://solidproject.org" target="_blank">
                 <AppIcon name="solid-emblem" class="mx-auto w-28 h-28" />
             </a>
@@ -8,25 +8,57 @@
                 Log in with Solid
             </h2>
         </div>
-        <form class="mt-8 space-y-3" @submit.prevent="submit">
+        <template v-if="wasLoggedIn">
+            <div class="flex flex-col p-2 space-y-3 bg-gray-100 border border-gray-300 rounded">
+                <span class="text-sm text-gray-800">
+                    You were previously logged in to <a
+                        :href="oldLoginUrl"
+                        target="_blank"
+                        class="font-medium text-gray-700 hover:underline hover:text-gray-900"
+                    >{{ oldLoginUrl }}</a>
+                </span>
+                <div class="flex justify-end space-x-3">
+                    <button
+                        type="button"
+                        class="text-sm text-gray-600 hover:underline hover:text-gray-700"
+                        @click="logout()"
+                    >
+                        Forget about it
+                    </button>
+                    <button
+                        type="button"
+                        class="px-4 py-2 text-sm border rounded border-solid-600 hover:bg-gray-200 hover:border-solid-700 text-solid-600 hover:text-solid-700"
+                        @click="login(oldLoginUrl)"
+                    >
+                        Log in again
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="flex-grow h-px bg-gray-300" />
+                <span>or</span>
+                <div class="flex-grow h-px bg-gray-300" />
+            </div>
+        </template>
+        <form class="space-y-3" @submit.prevent="submit">
             <div class="-space-y-px rounded-md shadow-sm">
                 <div>
-                    <label class="sr-only" for="pod-url">Solid POD url</label>
+                    <label class="sr-only" for="login-url">Solid login url</label>
                     <input
-                        id="pod-url"
+                        id="login-url"
                         ref="input"
-                        v-model="identityProvider"
+                        v-model="loginUrl"
                         class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-solid-500 focus:border-solid-500 focus:z-10 sm:text-sm"
                         required
-                        placeholder="Solid POD url"
+                        placeholder="Introduce your webId or identity provider"
                     >
                 </div>
             </div>
             <button
-                class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md group bg-solid-600 hover:bg-solid-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-solid-500"
+                class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md bg-solid-600 hover:bg-solid-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-solid-500"
                 type="submit"
             >
-                Log In
+                Log in
             </button>
         </form>
     </div>
@@ -39,13 +71,25 @@ import Auth from '@/services/Auth';
 
 export default defineComponent({
     setup() {
-        const identityProvider = ref('https://');
+        const loginUrl = ref('https://');
+        const wasLoggedIn = Auth.wasLoggedIn;
+        const oldLoginUrl = Auth.oldLoginUrl as string;
         const input = ref();
-        const submit = () => Auth.login(identityProvider.value);
+        const login = async (url: string) => {
+            try {
+                await Auth.login(url);
+            } catch (error) {
+                console.error(error);
+
+                alert(`Error: ${error.message}`);
+            }
+        };
+        const logout = () => Auth.logout();
+        const submit = () => login(loginUrl.value);
 
         onMounted(() => (input.value as HTMLInputElement).focus());
 
-        return { identityProvider, input, submit };
+        return { loginUrl, wasLoggedIn, oldLoginUrl, input, login, logout, submit };
     },
 });
 </script>

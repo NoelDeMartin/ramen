@@ -1,41 +1,63 @@
-import { after, Storage, PromisedValue } from '@noeldemartin/utils';
-import { Session } from '@inrupt/solid-client-authn-browser';
-import { SolidEngine } from 'soukai-solid';
+import { after, PromisedValue, silenced, Storage, urlBase } from '@noeldemartin/utils';
+import { Fetch, SolidEngine } from 'soukai-solid';
 import Soukai from 'soukai';
 
+import { AuthSession } from '@/authentication/Authenticator';
+import DPoPAuthenticator from '@/authentication/DPoPAuthenticator';
+import LegacyAuthenticator from '@/authentication/LegacyAuthenticator';
 import RDFStore from '@/utils/RDFStore';
 
 export type UserProfile = {
-    storageUrl: string;
-    typeIndexUrl: string;
+    webId: string;
+    storageUrls: string[];
+    privateTypeIndexUrl: string;
+    publicTypeIndexUrl: string;
+    oidcIssuerUrl?: string;
 }
+
+export type AuthStorage = {
+    loginUrl: string;
+    supportsDPop: boolean;
+}
+
+// TODO replace this for a way to know for sure when a provider doesn't support DPop, and use DPop by default
+const KNOWN_DPOP_ISSUERS: RegExp[] = [
+    /^https?:\/\/broker\.(pod|demo-ess)\.inrupt\.com/,
+];
 
 class Auth {
 
-    private session: Session = new Session();
+    private session: AuthSession | null = null;
     private _ready: PromisedValue<void> = new PromisedValue();
-    private _profile: UserProfile | null = null;
+    private _profile: PromisedValue<UserProfile> | null = null;
+    private _storage: AuthStorage | null = null;
 
     public get isLoggedIn(): boolean {
-        return this.session.info.isLoggedIn || false;
+        return !!this.session;
+    }
+
+    public get wasLoggedIn(): boolean {
+        return !!this._storage;
+    }
+
+    public get oldLoginUrl(): string | null {
+        return this._storage?.loginUrl ?? null;
     }
 
     public get profile(): Promise<UserProfile | null> {
-        if (!this.isLoggedIn)
+        if (!this.session)
             return Promise.resolve(null);
 
-        if (this._profile)
-            return Promise.resolve(this._profile);
-
-        return this.readProfile().then(profile => {
-            this._profile = profile;
-
-            return profile;
-        });
+        return this._profile
+            ?? (this._profile = PromisedValue.from(this.readProfile(this.session.webId)));
     }
 
     public get ready(): Promise<void> {
         return this._ready;
+    }
+
+    public get fetch(): Fetch {
+        return this.session?.authenticator.fetch ?? window.fetch.bind(window) as Fetch;
     }
 
     public async start(): Promise<void> {
@@ -44,68 +66,139 @@ class Auth {
         this._ready.resolve();
     }
 
-    public async login(identityProvider: string): Promise<void> {
-        if (this.isLoggedIn)
+    public async login(loginUrl: string): Promise<void> {
+        if (this.session)
             return;
 
-        Storage.set('user', { identityProvider });
+        const profile = await this.readProfileFromLoginUrl(loginUrl);
+        const oidcIssuer = profile?.oidcIssuerUrl ?? urlBase(profile?.webId ?? loginUrl);
+        const supportsDPop = await this.supportsDPopAuthenticaton(oidcIssuer, profile);
+        const authenticator = supportsDPop ? DPoPAuthenticator : LegacyAuthenticator;
 
-        await this.session.login({
-            oidcIssuer: identityProvider,
-            redirectUrl: window.location.href,
-        });
+        Storage.set('auth', { loginUrl, supportsDPop });
 
-        // The previous operation should trigger a redirect to a different url,
-        // if we're still here after 5 seconds something went wrong.
-        await after({ seconds: 5 });
+        try {
+            await authenticator.login(oidcIssuer);
+        } catch (error) {
+            Storage.remove('auth');
 
-        throw new Error(`There was an error logging in to ${identityProvider}`);
+            throw error;
+        }
+
+        await after({ seconds: 10 });
+
+        alert('You should have been redirected by now, maybe something went wrong');
     }
 
-    public logout(): void {
-        Storage.remove('user');
-        this.session.logout();
+    public async logout(): Promise<void> {
+        if (this.wasLoggedIn) {
+            Storage.remove('auth');
+            this._storage = null;
+        }
+
+        if (this.session)
+            await this.session.authenticator.logout();
+
         window.location.reload();
     }
 
-    public fetch(url: string, config?: unknown): Promise<Response> {
-        return this.session.fetch(url, config as RequestInit);
-    }
-
     private async boot(): Promise<void> {
-        const info = await this.session.handleIncomingRedirect(window.location.href);
+        const authenticators = [
+            DPoPAuthenticator,
+            LegacyAuthenticator,
+        ];
 
-        if (info?.isLoggedIn) {
-            Soukai.useEngine(new SolidEngine(this.fetch.bind(this)));
+        if (Storage.has('auth')) {
+            this._storage = Storage.get('auth') as AuthStorage;
 
-            return;
+            const authenticator = this._storage.supportsDPop ? DPoPAuthenticator : LegacyAuthenticator;
+            const otherAuthenticators = authenticators.filter(a => a !== authenticator);
+
+            authenticators.length = 0;
+            authenticators.push(authenticator);
+            authenticators.push(...otherAuthenticators);
         }
 
-        if (Storage.has('user')) {
-            const { identityProvider } = Storage.get('user', { identityProvider: '' });
+        authenticators.forEach(authenticator => authenticator.addListener({
+            sessionStarted: async session => this.session = session,
+        }));
 
-            await this.login(identityProvider);
+        for (const authenticator of authenticators) {
+            await authenticator.boot();
 
-            return;
+            if (this.session) {
+                Soukai.useEngine(new SolidEngine(this.fetch));
+
+                return;
+            }
         }
     }
 
-    private async readProfile(): Promise<UserProfile> {
-        const webId = this.session.info.webId as string;
-        const store = await RDFStore.fromUrl(this.fetch.bind(this), webId);
-        const storages = store.statements(webId, 'pim:storage');
-        const typeIndexStatement = store.statement(webId, 'solid:privateTypeIndex');
+    private async readProfileFromLoginUrl(loginUrl: string): Promise<UserProfile | null> {
+        const readProfile = silenced(this.readProfile.bind(this));
 
-        if (!typeIndexStatement)
-            throw new Error('Couldn\'t find solid:privateTypeIndex in profile');
+        return await readProfile(loginUrl)
+            ?? await readProfile(loginUrl.replace(/\/$/, '').concat('/profile/card#me'))
+            ?? await readProfile(urlBase(loginUrl).concat('/profile/card#me'));
+    }
+
+    private async readProfile(webId: string): Promise<UserProfile> {
+        const store = await RDFStore.fromUrl(this.fetch, webId);
+        const storages = store.statements(webId, 'pim:storage');
+        const privateTypeIndex = store.statement(webId, 'solid:privateTypeIndex');
+        const publicTypeIndex = store.statement(webId, 'solid:publicTypeIndex');
+        const oidcIssuer = store.statement(webId, 'solid:oidcIssuer');
 
         if (storages.length === 0)
-            throw new Error('Couldn\'t find pim:storage in profile');
+            throw new Error('Couldn\'t find a storage in profile');
+
+        if (!privateTypeIndex)
+            throw new Error('Couldn\'t find a private type index in the profile');
+
+        if (!publicTypeIndex)
+            throw new Error('Couldn\'t find a public type index in the profile');
 
         return {
-            storageUrl: storages[0].object.value,
-            typeIndexUrl: typeIndexStatement.object.value,
+            webId,
+            storageUrls: storages.map(storage => storage.object.value),
+            privateTypeIndexUrl: privateTypeIndex.object.value,
+            publicTypeIndexUrl: publicTypeIndex.object.value,
+            oidcIssuerUrl: oidcIssuer?.object.value,
         };
+    }
+
+    private async supportsDPopAuthenticaton(oidcIssuer: string, profile: UserProfile | null): Promise<boolean> {
+        return await this.oidcIssuerSupportsDPop(oidcIssuer)
+            || await this.authorizesDPopRequests(profile)
+            || KNOWN_DPOP_ISSUERS.some(issuerRegex => issuerRegex.test(oidcIssuer));
+    }
+
+    private async oidcIssuerSupportsDPop(oidcIssuer: string): Promise<boolean> {
+        try {
+            const configUrl = `${oidcIssuer}/.well-known/openid-configuration`;
+            const config = await this.fetch(configUrl).then(res => res.json()) as { token_types_supported: string[] };
+
+            return config.token_types_supported.map(token => token.toLowerCase()).includes('dpop');
+        } catch (error) {
+            return false;
+        }
+    }
+
+    private async authorizesDPopRequests(profile: UserProfile | null): Promise<boolean> {
+        if (!profile?.privateTypeIndexUrl)
+            return false;
+
+        try {
+            const response = await window.fetch(profile.privateTypeIndexUrl, {
+                headers: { Authorization: 'DPop invalidtoken' },
+            });
+
+            console.log(profile.privateTypeIndexUrl, response.status);
+
+            return response.status === 401;
+        } catch (error) {
+            return false;
+        }
     }
 
 }
