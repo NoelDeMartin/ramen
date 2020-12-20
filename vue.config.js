@@ -1,3 +1,5 @@
+const isProduction = process.env.NODE_ENV === 'production';
+
 function configureSVG(config) {
     const svgRule = config.module.rule('svg');
 
@@ -6,9 +8,11 @@ function configureSVG(config) {
     svgRule.use('vue-svg-loader').loader('vue-svg-loader');
 }
 
-function configureTitle(config) {
+function configureHtml(config) {
     config.plugin('html').tap(args => {
         args[0].title = 'Ramen';
+        args[0].description = 'Can you make Ramen? Let\'s find out!';
+        args[0].baseUrl = isProduction ? 'https://ramen.noeldemartin.com' : 'http://localhost:8080';
 
         return args;
     });
@@ -17,6 +21,6 @@ function configureTitle(config) {
 module.exports = {
     chainWebpack(config) {
         configureSVG(config);
-        configureTitle(config);
+        configureHtml(config);
     },
 };
