@@ -18,9 +18,19 @@ function configureHtml(config) {
     });
 }
 
+function configureSourceMaps(config) {
+    config.module
+        .rule('js-maps')
+        .test(/\.m?jsx?$/)
+        .enforce('pre')
+        .use('source-map-loader')
+        .loader('source-map-loader');
+}
+
 module.exports = {
     chainWebpack(config) {
         configureSVG(config);
         configureHtml(config);
+        configureSourceMaps(config);
     },
 };
