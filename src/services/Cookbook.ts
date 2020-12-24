@@ -1,5 +1,4 @@
 import { PromisedValue, uuid } from '@noeldemartin/utils';
-import { Quad } from 'n3';
 
 import RDFStore from '@/utils/RDFStore';
 
@@ -21,7 +20,7 @@ class Cookbook {
         return this._ready;
     }
 
-    public get loaded(): Promise<void> {
+    public get loaded(): Promise<CookbookModel> {
         return this._model.then();
     }
 
@@ -32,12 +31,11 @@ class Cookbook {
         this._ready.resolve();
     }
 
-    public async create(): Promise<void> {
+    public async create(storageUrl: string): Promise<void> {
         if (this.model)
             throw new Error('You already have a cookbook!');
 
-        const profile = await Auth.profile as UserProfile;
-        const model = await CookbookModel.at(profile.storageUrls[0]).create<CookbookModel>({ name: 'Cookbook' });
+        const model = await CookbookModel.at(storageUrl).create<CookbookModel>({ name: 'Cookbook' });
 
         this._model.resolve(model);
 
@@ -64,34 +62,44 @@ class Cookbook {
     }
 
     private async loadModelFromCookbook(): Promise<void> {
-        const url = await this.readCookbookUrl();
+        const urls = await this.readCookbookUrls();
 
-        if (!url)
-            return;
+        for (const url of urls) {
+            const model = await CookbookModel.find<CookbookModel>(url);
 
-        const model = await CookbookModel.find<CookbookModel>(url);
+            if (!model)
+                continue;
 
-        if (model)
-            this._model.resolve(model as CookbookModel);
+            this._model.resolve(model);
+            break;
+        }
     }
 
-    private async readCookbookUrl(): Promise<string | null> {
+    private async readCookbookUrls(): Promise<string[]> {
         const profile = await Auth.profile as UserProfile;
-        const store = await RDFStore.fromUrl(Auth.fetch, profile.privateTypeIndexUrl);
-        const cookbookType = store
-            .statements(null, 'rdfs:type', 'solid:TypeRegistration')
-            .find(
-                statement =>
-                    store.contains(statement.subject.value, 'solid:forClass', 'schema:Recipe') &&
-                    store.contains(statement.subject.value, 'solid:instanceContainer'),
-            );
+        const findCookbooks = async (typeIndexUrl: string) => {
+            const store = await RDFStore.fromUrl(Auth.fetch, typeIndexUrl);
 
-        if (!cookbookType)
-            return null;
+            return store
+                .statements(null, 'rdfs:type', 'solid:TypeRegistration')
+                .filter(
+                    statement =>
+                        store.contains(statement.subject.value, 'solid:forClass', 'schema:Recipe') &&
+                        store.contains(statement.subject.value, 'solid:instanceContainer'),
+                )
+                .map(
+                    typeStatement =>
+                        store.statement(typeStatement.subject.value, 'solid:instanceContainer')?.object.value,
+                )
+                .filter(url => !!url) as string[];
+        };
 
-        const instanceContainerType = store.statement(cookbookType.subject.value, 'solid:instanceContainer') as Quad;
+        const urls = await Promise.all([
+            findCookbooks(profile.publicTypeIndexUrl),
+            findCookbooks(profile.privateTypeIndexUrl),
+        ]);
 
-        return instanceContainerType.object.value;
+        return urls.flat();
     }
 
 }

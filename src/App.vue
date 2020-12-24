@@ -1,5 +1,7 @@
 <template>
     <div class="flex flex-col items-center w-screen h-screen overflow-auto text-base antialiased font-normal leading-tight text-gray-900 bg-yellow-50 font-ubuntu">
+        <AppHeader v-if="isLoggedIn" />
+
         <div class="flex items-center self-stretch justify-center flex-grow p-10">
             <h1 v-if="isLoading" class="text-5xl text-center">
                 Loading...
@@ -14,8 +16,6 @@
                     <NoCookbook v-if="!isCookbookAvailable" />
                     <NoRamen v-else-if="!ramen" />
                     <Ramen v-else :ramen="ramen" />
-
-                    <LogoutButton />
                 </template>
 
                 <LoginForm v-else />
@@ -36,8 +36,8 @@ import Cookbook from '@/services/Cookbook';
 import Ramen from '@/services/Ramen';
 
 import AppFooter from '@/components/AppFooter.vue';
+import AppHeader from '@/components/AppHeader.vue';
 import LoginForm from '@/components/LoginForm.vue';
-import LogoutButton from '@/components/LogoutButton.vue';
 import NoCookbook from '@/components/NoCookbook.vue';
 import NoRamen from '@/components/NoRamen.vue';
 import RamenComponent from '@/components/Ramen.vue';
@@ -54,8 +54,8 @@ export default defineComponent({
     name: 'App',
     components: {
         AppFooter,
+        AppHeader,
         LoginForm,
-        LogoutButton,
         NoCookbook,
         NoRamen,
         Ramen: RamenComponent,

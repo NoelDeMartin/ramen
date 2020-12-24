@@ -11,7 +11,7 @@
         <template v-if="wasLoggedIn">
             <div class="flex flex-col p-2 space-y-3 bg-gray-100 border border-gray-300 rounded">
                 <span class="text-sm text-gray-800">
-                    You were previously logged in to <a
+                    You were logged in with <a
                         :href="oldLoginUrl"
                         target="_blank"
                         class="font-medium text-gray-700 hover:underline hover:text-gray-900"
@@ -49,7 +49,6 @@
                         ref="input"
                         v-model="loginUrl"
                         class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-solid-500 focus:border-solid-500 focus:z-10 sm:text-sm"
-                        required
                         placeholder="Introduce your webId or identity provider"
                     >
                 </div>
@@ -85,7 +84,7 @@ export default defineComponent({
             }
         };
         const logout = () => Auth.logout();
-        const submit = () => login(loginUrl.value);
+        const submit = () => loginUrl.value && login(loginUrl.value);
 
         onMounted(() => (input.value as HTMLInputElement).focus());
 

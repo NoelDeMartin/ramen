@@ -9,8 +9,9 @@
     "serve": "vue-cli-service serve"
   },
   "dependencies": {
+    "@headlessui/vue": "^0.2.0",
     "@inrupt/solid-client-authn-browser": "^1.2.0",
-    "@noeldemartin/utils": "0.0.1-next.a95cce01990f8640e1f5b039a8b3cfc63b5c57c1",
+    "@noeldemartin/utils": "0.0.1-next.9b956453c09263221242378b438167705d733c9a",
     "n3": "^1.6.4",
     "rdf-js": "^1.0.2",
     "soukai": "^0.4.0",

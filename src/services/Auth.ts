@@ -8,6 +8,7 @@ import LegacyAuthenticator from '@/authentication/LegacyAuthenticator';
 import RDFStore from '@/utils/RDFStore';
 
 export type UserProfile = {
+    name?: string;
     webId: string;
     storageUrls: string[];
     privateTypeIndexUrl: string;
@@ -17,10 +18,10 @@ export type UserProfile = {
 
 export type AuthStorage = {
     loginUrl: string;
-    supportsDPop: boolean;
+    supportsDPoP: boolean;
 }
 
-// TODO replace this for a way to know for sure when a provider doesn't support DPop, and use DPop by default
+// TODO replace this for a way to know for sure when a provider doesn't support DPoP, and use DPoP by default
 const KNOWN_DPOP_ISSUERS: RegExp[] = [
     /^https?:\/\/broker\.(pod|demo-ess)\.inrupt\.com/,
 ];
@@ -72,10 +73,11 @@ class Auth {
 
         const profile = await this.readProfileFromLoginUrl(loginUrl);
         const oidcIssuer = profile?.oidcIssuerUrl ?? urlBase(profile?.webId ?? loginUrl);
-        const supportsDPop = await this.supportsDPopAuthenticaton(oidcIssuer, profile);
-        const authenticator = supportsDPop ? DPoPAuthenticator : LegacyAuthenticator;
+        const supportsDPoP = await this.supportsDPoPAuthenticaton(oidcIssuer, profile);
+        const authenticator = supportsDPoP ? DPoPAuthenticator : LegacyAuthenticator;
+        const storage: AuthStorage = { loginUrl, supportsDPoP: supportsDPoP };
 
-        Storage.set('auth', { loginUrl, supportsDPop });
+        Storage.set('auth', storage);
 
         try {
             await authenticator.login(oidcIssuer);
@@ -111,7 +113,7 @@ class Auth {
         if (Storage.has('auth')) {
             this._storage = Storage.get('auth') as AuthStorage;
 
-            const authenticator = this._storage.supportsDPop ? DPoPAuthenticator : LegacyAuthenticator;
+            const authenticator = this._storage.supportsDPoP ? DPoPAuthenticator : LegacyAuthenticator;
             const otherAuthenticators = authenticators.filter(a => a !== authenticator);
 
             authenticators.length = 0;
@@ -147,7 +149,6 @@ class Auth {
         const storages = store.statements(webId, 'pim:storage');
         const privateTypeIndex = store.statement(webId, 'solid:privateTypeIndex');
         const publicTypeIndex = store.statement(webId, 'solid:publicTypeIndex');
-        const oidcIssuer = store.statement(webId, 'solid:oidcIssuer');
 
         if (storages.length === 0)
             throw new Error('Couldn\'t find a storage in profile');
@@ -163,17 +164,18 @@ class Auth {
             storageUrls: storages.map(storage => storage.object.value),
             privateTypeIndexUrl: privateTypeIndex.object.value,
             publicTypeIndexUrl: publicTypeIndex.object.value,
-            oidcIssuerUrl: oidcIssuer?.object.value,
+            name: store.statement(webId, 'foaf:name')?.object.value,
+            oidcIssuerUrl: store.statement(webId, 'solid:oidcIssuer')?.object.value,
         };
     }
 
-    private async supportsDPopAuthenticaton(oidcIssuer: string, profile: UserProfile | null): Promise<boolean> {
-        return await this.oidcIssuerSupportsDPop(oidcIssuer)
-            || await this.authorizesDPopRequests(profile)
+    private async supportsDPoPAuthenticaton(oidcIssuer: string, profile: UserProfile | null): Promise<boolean> {
+        return await this.oidcIssuerSupportsDPoP(oidcIssuer)
+            || await this.authorizesDPoPRequests(profile)
             || KNOWN_DPOP_ISSUERS.some(issuerRegex => issuerRegex.test(oidcIssuer));
     }
 
-    private async oidcIssuerSupportsDPop(oidcIssuer: string): Promise<boolean> {
+    private async oidcIssuerSupportsDPoP(oidcIssuer: string): Promise<boolean> {
         try {
             const configUrl = `${oidcIssuer}/.well-known/openid-configuration`;
             const config = await this.fetch(configUrl).then(res => res.json()) as { token_types_supported: string[] };
@@ -184,13 +186,13 @@ class Auth {
         }
     }
 
-    private async authorizesDPopRequests(profile: UserProfile | null): Promise<boolean> {
+    private async authorizesDPoPRequests(profile: UserProfile | null): Promise<boolean> {
         if (!profile?.privateTypeIndexUrl)
             return false;
 
         try {
             const response = await window.fetch(profile.privateTypeIndexUrl, {
-                headers: { Authorization: 'DPop invalidtoken' },
+                headers: { Authorization: 'DPoP invalidtoken' },
             });
 
             console.log(profile.privateTypeIndexUrl, response.status);
