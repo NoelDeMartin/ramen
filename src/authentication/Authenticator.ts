@@ -1,4 +1,4 @@
-import { arr, FluentArray } from '@noeldemartin/utils';
+import { arr, FluentArray, PromisedValue } from '@noeldemartin/utils';
 import { Fetch } from 'soukai-solid';
 
 export interface AuthListener {
@@ -14,12 +14,22 @@ export default abstract class Authenticator {
 
     public abstract fetch: Fetch;
     private listeners: FluentArray<AuthListener> = arr<AuthListener>([]);
-
-    public abstract boot(): Promise<void>;
+    private booted?: PromisedValue<void>;
 
     public abstract login(oidcIssuer: string): Promise<void>;
 
     public abstract logout(): Promise<void>;
+
+    public async boot(): Promise<void> {
+        if (this.booted)
+            return this.booted;
+
+        this.booted = new PromisedValue;
+
+        await this.startSession();
+
+        this.booted.resolve();
+    }
 
     public addListener(listener: AuthListener): () => void {
         if (!this.listeners.contains(listener))
@@ -36,6 +46,8 @@ export default abstract class Authenticator {
 
         this.listeners.remove(listener);
     }
+
+    protected abstract startSession(): Promise<void>;
 
     protected onSessionStarted(session: Omit<AuthSession, 'authenticator'>): void {
         this.listeners.forEach(listener => {

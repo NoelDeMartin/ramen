@@ -80,6 +80,7 @@ class Auth {
         Storage.set('auth', storage);
 
         try {
+            await authenticator.boot();
             await authenticator.login(oidcIssuer);
         } catch (error) {
             Storage.remove('auth');
@@ -109,35 +110,24 @@ class Auth {
     }
 
     private async boot(): Promise<void> {
-        const authenticators = [
-            DPoPAuthenticator,
-            LegacyAuthenticator,
-        ];
+        if (!Storage.has('auth'))
+            return;
 
-        if (Storage.has('auth')) {
-            this._storage = Storage.get('auth') as AuthStorage;
+        this._storage = Storage.get('auth') as AuthStorage;
 
-            const authenticator = this._storage.supportsDPoP ? DPoPAuthenticator : LegacyAuthenticator;
-            const otherAuthenticators = authenticators.filter(a => a !== authenticator);
+        const authenticator = this._storage.supportsDPoP ? DPoPAuthenticator : LegacyAuthenticator;
 
-            authenticators.length = 0;
-            authenticators.push(authenticator);
-            authenticators.push(...otherAuthenticators);
-        }
+        authenticator.addListener({
+            sessionStarted: session => {
+                if (!session)
+                    return;
 
-        authenticators.forEach(authenticator => authenticator.addListener({
-            sessionStarted: async session => this.session = session,
-        }));
-
-        for (const authenticator of authenticators) {
-            await authenticator.boot();
-
-            if (this.session) {
+                this.session = session;
                 Soukai.useEngine(new SolidEngine(this.fetch));
+            },
+        });
 
-                return;
-            }
-        }
+        await authenticator.boot();
     }
 
     private async readProfileFromLoginUrl(loginUrl: string): Promise<UserProfile | null> {

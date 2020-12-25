@@ -1,17 +1,24 @@
-import { Session } from '@inrupt/solid-client-authn-browser';
 import { Fetch } from 'soukai-solid';
+import { Session } from '@inrupt/solid-client-authn-browser';
 
 import Authenticator from '@/authentication/Authenticator';
 
 class DPoPAuthenticator extends Authenticator {
 
-    private session: Session = new Session();
+    private session!: Session;
 
     public get fetch(): Fetch {
         return this.session.fetch.bind(this.session) as unknown as Fetch;
     }
 
-    public async boot(): Promise<void> {
+    public async startSession(): Promise<void> {
+        const { Session } = await import(
+            /* webpackChunkName: 'authentication-dpop' */
+            './DPoPAuthenticator.chunk'
+        );
+
+        this.session = new Session();
+
         await this.session.handleIncomingRedirect(window.location.href);
 
         if (this.session.info.isLoggedIn)
