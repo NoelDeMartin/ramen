@@ -1,3 +1,5 @@
+const { existsSync } = require('fs');
+const { resolve, dirname } = require('path');
 const isProduction = process.env.NODE_ENV === 'production';
 
 function configureSVG(config) {
@@ -24,7 +26,11 @@ function configureSourceMaps(config) {
         .test(/\.m?jsx?$/)
         .enforce('pre')
         .use('source-map-loader')
-        .loader('source-map-loader');
+        .loader('source-map-loader')
+        .options({
+            filterSourceMappingUrl:
+                (url, resourcePath) => existsSync(resolve(dirname(resourcePath), url)) ? 'consume' : 'skip',
+        });
 }
 
 module.exports = {
