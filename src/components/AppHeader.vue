@@ -1,7 +1,7 @@
 <template>
     <div v-if="profile" class="flex self-stretch justify-between p-4">
         <div class="flex flex-col space-y-2">
-            <div class="flex items-center text-sm" :title="`WebId - ${profile.webId}`">
+            <div class="flex items-center text-sm" :title="`Your Web Id: ${profile.webId}`">
                 <AppIcon name="user" class="w-4 h-4 mr-2" />
                 <a
                     class="text-gray-700 hover:text-gray-900 hover:underline"
@@ -14,7 +14,7 @@
             <div
                 v-if="cookbook"
                 class="flex items-center text-sm"
-                :title="`Recipes container - ${cookbook.url}`"
+                :title="`Your recipes container: ${cookbook.url}`"
             >
                 <AppIcon name="book" class="w-4 h-4 mr-2" />
                 <a
@@ -40,6 +40,8 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 
+import { safe } from '@/utils';
+
 import CookbookModel from '@/models/soukai/Cookbook';
 
 import Auth, { UserProfile } from '@/services/Auth';
@@ -50,12 +52,16 @@ export default defineComponent({
         const profile = ref<UserProfile | null>(null);
         const cookbook = ref<CookbookModel | null>(null);
         const showInfo = ref<boolean>(false);
-        const logout = () => Auth.logout();
 
         Auth.profile.then(_profile => profile.value = _profile);
         Cookbook.loaded.then(_cookbook => cookbook.value = _cookbook);
 
-        return { profile, cookbook, showInfo, logout };
+        return {
+            profile,
+            cookbook,
+            showInfo,
+            logout: safe('Logging out...', () => Auth.logout()),
+        };
     },
 });
 </script>

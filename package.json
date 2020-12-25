@@ -11,11 +11,11 @@
   "dependencies": {
     "@headlessui/vue": "^0.2.0",
     "@inrupt/solid-client-authn-browser": "^1.2.0",
-    "@noeldemartin/utils": "0.0.1-next.9b956453c09263221242378b438167705d733c9a",
+    "@noeldemartin/utils": "0.0.1-next.bbab278eff3df59e459afe382dbb16a373777aa9",
     "n3": "^1.6.4",
     "rdf-js": "^1.0.2",
     "soukai": "^0.4.0",
-    "soukai-solid": "^0.4.0-dev.87a8327a857c833f62f24914b62d2ef1b2c1978d",
+    "soukai-solid": "^0.4.0-dev.ed18e3c80cbe9b2d7d78670db5462bafc5ec1d89",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
     "vue": "^3.0.4"
   },

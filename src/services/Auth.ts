@@ -102,6 +102,10 @@ class Auth {
             await this.session.authenticator.logout();
 
         window.location.reload();
+
+        await after({ seconds: 10 });
+
+        alert('This window should have been refreshed by now, maybe something went wrong');
     }
 
     private async boot(): Promise<void> {

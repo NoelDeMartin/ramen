@@ -17,13 +17,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import { safe } from '@/utils';
+
 import Ramen from '@/services/Ramen';
 
 export default defineComponent({
-    methods: {
-        learnToMakeRamen() {
-            Ramen.learnRecipe();
-        },
-    },
+    setup: () => ({
+        learnToMakeRamen: safe('Preparing recipe...', () => Ramen.learnRecipe()),
+    }),
 });
 </script>

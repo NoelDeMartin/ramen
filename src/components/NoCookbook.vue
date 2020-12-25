@@ -27,6 +27,8 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 
+import { safe } from '@/utils';
+
 import Cookbook from '@/services/Cookbook';
 import Auth from '@/services/Auth';
 
@@ -42,27 +44,23 @@ export default defineComponent({
         const storageUrlsOptions = computed<AppSelectOption[]>(
             () => storageUrls.value
                 .map(url => ({ text: url, value: url }))
-                .concat({ text: 'Use another url', value: 'add' }),
+                .concat({ text: 'Add url', value: 'add' }),
         );
         const changeStorage = (storage: string) => {
             if (storage === 'add') {
-                const newStorage = prompt('Where do you want to store your cookbook?');
+                let newStorage = prompt('Where do you want to store your cookbook?');
 
                 if (!newStorage)
                     return;
+
+                if (!newStorage.endsWith('/'))
+                    newStorage += '/';
 
                 storage = newStorage;
                 storageUrls.value.push(newStorage);
             }
 
             storageUrl.value = storage;
-        };
-        const createCookbook = async () => {
-            try {
-                await Cookbook.create(storageUrl.value);
-            } catch (error) {
-                alert(`Error: ${error.message}`);
-            }
         };
 
         Auth.profile.then(profile => {
@@ -73,7 +71,12 @@ export default defineComponent({
             storageUrl.value = profile.storageUrls[0];
         });
 
-        return { storageUrl, storageUrlsOptions, changeStorage, createCookbook };
+        return {
+            storageUrl,
+            storageUrlsOptions,
+            changeStorage,
+            createCookbook: safe('Creating cookbook...', () => Cookbook.create(storageUrl.value)),
+        };
     },
 });
 </script>

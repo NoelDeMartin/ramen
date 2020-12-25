@@ -9,7 +9,7 @@
             </h2>
         </div>
         <template v-if="wasLoggedIn">
-            <div class="flex flex-col p-2 space-y-3 bg-gray-100 border border-gray-300 rounded">
+            <div class="flex flex-col p-4 space-y-6 bg-gray-100 border border-gray-300 rounded">
                 <span class="text-sm text-gray-800">
                     You were logged in with <a
                         :href="oldLoginUrl"
@@ -23,7 +23,7 @@
                         class="text-sm text-gray-600 hover:underline hover:text-gray-700"
                         @click="logout()"
                     >
-                        Forget about it
+                        Forget it
                     </button>
                     <button
                         type="button"
@@ -66,6 +66,8 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
 
+import { safe } from '@/utils';
+
 import Auth from '@/services/Auth';
 
 export default defineComponent({
@@ -74,21 +76,19 @@ export default defineComponent({
         const wasLoggedIn = Auth.wasLoggedIn;
         const oldLoginUrl = Auth.oldLoginUrl as string;
         const input = ref();
-        const login = async (url: string) => {
-            try {
-                await Auth.login(url);
-            } catch (error) {
-                console.error(error);
-
-                alert(`Error: ${error.message}`);
-            }
-        };
-        const logout = () => Auth.logout();
-        const submit = () => loginUrl.value && login(loginUrl.value);
+        const login = safe('Logging in...', (url: string) => Auth.login(url));
 
         onMounted(() => (input.value as HTMLInputElement).focus());
 
-        return { loginUrl, wasLoggedIn, oldLoginUrl, input, login, logout, submit };
+        return {
+            loginUrl,
+            wasLoggedIn,
+            oldLoginUrl,
+            input,
+            login,
+            logout: safe('Logging out...', () => Auth.logout()),
+            submit: safe(() => loginUrl.value && login(loginUrl.value)),
+        };
     },
 });
 </script>
