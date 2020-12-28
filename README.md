@@ -4,12 +4,30 @@ Can you make Ramen? [Let's find out!](https://ramen.noeldemartin.com)
 
 ## What is this?
 
-This is a simple (and silly) [Solid App](https://solidproject.org) that I've created to test interacting with different Solid environments ([NSS](https://github.com/solid/node-solid-server), [CSS](https://github.com/solid/community-server), [ESS](https://inrupt.com/products/enterprise-solid-server/), [PSS](https://github.com/pdsinterop/php-solid-server), etc.). I had been developing apps exclusively with NSS, but now that I started testing with other implementations I wanted to start with something simple. Going forward, this repository will be my golden standard for app interactions with Solid. So it's also a good place to start if you want to learn how I build my apps.
+This is a simple (and silly) [Solid App](https://solidproject.org) that I've created to test interacting with [different Solid environments](#current-status-and-known-issues). I had been developing apps exclusively with `node-solid-server`, but now that I wanted to test with other implementations I decided to start with something simple. Going forward, this repository will be my golden standard for app interactions with Solid servers. It's also a good place to start if you want to learn how I build my apps.
 
 What the application actually does is that once you're logged in, it checks if you have a `schema:Recipe` container and finds a recipe with "ramen" in the title. If they don't exist, it lets you create them.
 
-If this application is not working with your POD, please let me know! I'm also open to improvements if there's something I could be doing differently.
+If this application is not working with your Solid account, please let me know! I'm also open to improvements if there's something I could be doing differently.
+
+## Current Status and Known Issues
+
+At the moment, there are a couple of issues with authentication.
+
+I am using [@inrupt/solid-client-authn-browser](https://github.com/inrupt/solid-client-authn-js/) to login using DPoP authentication and [solid-auth-client](https://github.com/solid/solid-auth-client) otherwise. However, the current implementation relies on [some heuristics](https://github.com/NoelDeMartin/ramen/blob/main/src/services/Auth.ts#L166..L170) to know if a server supports DPoP, and they are not error proof.
+
+Another problem with authentication is that using DPoP users have to log in again after refreshing the page. This is not an issue per-se, and the application will remind users of their last login url. But it's not great UX. This is [a known issue](https://github.com/inrupt/solid-client-authn-js/issues/423) in Inrupt's library.
+
+Other than that, everything else should work properly with any Solid server. The application has been tested with the following implementations:
+
+- [Node Solid Server](https://github.com/solid/node-solid-server): The app has been tested and works properly with `v5.2.2` and `v5.6.0`.
+- [Enterprise Solid Server](https://inrupt.com/products/enterprise-solid-server/): The app has been tested and works properly, however I wasn't able to detect that the server supports DPoP so I ended up [hard-coding the domains in the code](https://github.com/NoelDeMartin/ramen/blob/main/src/services/Auth.ts#L26). Any other deployments of this server will probably fail when logging in.
+- [Community Solid Server](https://github.com/solid/community-server): The app has been tested, but the container has to be created manually until [solid/community-server#436](https://github.com/solid/community-server/issues/436) is fixed. Logging in has to be done through an external provider (as discussed [here](https://github.com/solid/community-server/issues/425)), and creating the recipe and reading the data works properly.
+- [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): The app has been tested, but the server requires multiple fixes to work properly. Those are being discussed in [pdsinterop/php-solid-server#42](https://github.com/pdsinterop/php-solid-server/issues/42).
 
 ## Attributions
 
-Emojis by [Twitter](https://github.com/twitter/twemoji/), icons by [heroicons](https://heroicons.com/), and Ubuntu font by [Canonical](https://design.ubuntu.com/font/).
+- SVG icons by [heroicons](https://heroicons.com) and [Zondicons](https://www.zondicons.com).
+- SVG Loaders by [Sam Herbert](https://samherbert.net/svg-loaders).
+- Emojis by [Twitter](https://github.com/twitter/twemoji).
+- Ubuntu font by [Canonical](https://design.ubuntu.com/font).
