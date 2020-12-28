@@ -18,7 +18,9 @@ I am using [@inrupt/solid-client-authn-browser](https://github.com/inrupt/solid-
 
 Another problem with authentication is that using DPoP users have to log in again after refreshing the page. This is not an issue per-se, and the application will remind users of their last login url. But it's not great UX. This is [a known issue](https://github.com/inrupt/solid-client-authn-js/issues/423) in Inrupt's library.
 
-Other than that, everything else should work properly with any Solid server. The application has been tested with the following implementations:
+Other than that, everything should work properly with any Solid server.
+
+The application has been tested with the following implementations:
 
 - [Node Solid Server](https://github.com/solid/node-solid-server): The app has been tested and works properly with `v5.2.2` and `v5.6.0`.
 - [Enterprise Solid Server](https://inrupt.com/products/enterprise-solid-server/): The app has been tested and works properly, however I wasn't able to detect that the server supports DPoP so I ended up [hard-coding the domains in the code](https://github.com/NoelDeMartin/ramen/blob/main/src/services/Auth.ts#L26). Any other deployments of this server will probably fail when logging in.
@@ -28,6 +30,6 @@ Other than that, everything else should work properly with any Solid server. The
 ## Attributions
 
 - SVG icons by [heroicons](https://heroicons.com) and [Zondicons](https://www.zondicons.com).
-- SVG Loaders by [Sam Herbert](https://samherbert.net/svg-loaders).
+- SVG loaders by [Sam Herbert](https://samherbert.net/svg-loaders).
 - Emojis by [Twitter](https://github.com/twitter/twemoji).
 - Ubuntu font by [Canonical](https://design.ubuntu.com/font).
