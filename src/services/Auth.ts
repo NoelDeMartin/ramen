@@ -75,7 +75,7 @@ class Auth {
         const oidcIssuer = profile?.oidcIssuerUrl ?? urlBase(profile?.webId ?? loginUrl);
         const supportsDPoP = await this.supportsDPoPAuthenticaton(oidcIssuer, profile);
         const authenticator = supportsDPoP ? DPoPAuthenticator : LegacyAuthenticator;
-        const storage: AuthStorage = { loginUrl, supportsDPoP: supportsDPoP };
+        const storage: AuthStorage = { loginUrl, supportsDPoP };
 
         Storage.set('auth', storage);
 

@@ -1,6 +1,6 @@
 <template>
-    <div v-if="profile" class="flex self-stretch justify-between p-4">
-        <div class="flex flex-col space-y-2">
+    <div class="flex self-stretch justify-between p-4">
+        <div v-if="profile" class="flex flex-col space-y-2">
             <div class="flex items-center text-sm" :title="`Your Web Id: ${profile.webId}`">
                 <AppIcon name="user" class="w-4 h-4 mr-2" />
                 <a
@@ -26,6 +26,7 @@
                 </a>
             </div>
         </div>
+        <div v-else />
         <button
             type="button"
             class="text-red-500 hover:text-red-800"
