@@ -189,8 +189,6 @@ class Auth {
                 headers: { Authorization: 'DPoP invalidtoken' },
             });
 
-            console.log(profile.privateTypeIndexUrl, response.status);
-
             return response.status === 401;
         } catch (error) {
             return false;
