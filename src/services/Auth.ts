@@ -23,7 +23,7 @@ export type AuthStorage = {
 
 // TODO replace this for a way to know for sure when a provider doesn't support DPoP, and use DPoP by default
 const KNOWN_DPOP_ISSUERS: RegExp[] = [
-    /^https?:\/\/broker\.(pod|demo-ess)\.inrupt\.com/,
+    /^https?:\/\/broker\.(pod|pod-compat|demo-ess)\.inrupt\.com/,
 ];
 
 class Auth {
