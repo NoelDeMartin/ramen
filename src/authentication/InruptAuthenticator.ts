@@ -8,7 +8,7 @@ class InruptAuthenticator extends Authenticator {
     private session!: Session;
 
     public get fetch(): Fetch {
-        return this.session.fetch.bind(this.session) as unknown as Fetch;
+        return this.session.fetch.bind(this.session);
     }
 
     public async startSession(): Promise<void> {

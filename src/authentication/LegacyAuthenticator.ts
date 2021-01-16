@@ -8,7 +8,7 @@ class LegacyAuthenticator extends Authenticator {
     private client!: SolidAuthClient;
 
     public get fetch(): Fetch {
-        return this.client.fetch.bind(this.client) as unknown as Fetch;
+        return this.client.fetch.bind(this.client);
     }
 
     public async startSession(): Promise<void> {

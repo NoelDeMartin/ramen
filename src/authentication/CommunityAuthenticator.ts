@@ -15,7 +15,7 @@ class CommunityAuthenticator extends Authenticator {
             './CommunityAuthenticator.chunk'
         );
 
-        this.fetch = fetch as unknown as Fetch;
+        this.fetch = fetch;
         this._login = login;
         this._logout = logout;
 
