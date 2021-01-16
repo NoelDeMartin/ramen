@@ -1,9 +1,9 @@
 import { Fetch } from 'soukai-solid';
-import { Session } from '@inrupt/solid-client-authn-browser';
+import type { Session } from '@inrupt/solid-client-authn-browser';
 
 import Authenticator from '@/authentication/Authenticator';
 
-class DPoPAuthenticator extends Authenticator {
+class InruptAuthenticator extends Authenticator {
 
     private session!: Session;
 
@@ -13,8 +13,8 @@ class DPoPAuthenticator extends Authenticator {
 
     public async startSession(): Promise<void> {
         const { Session } = await import(
-            /* webpackChunkName: 'authentication-dpop' */
-            './DPoPAuthenticator.chunk'
+            /* webpackChunkName: 'authentication-inrupt' */
+            './InruptAuthenticator.chunk'
         );
 
         this.session = new Session();
@@ -38,4 +38,4 @@ class DPoPAuthenticator extends Authenticator {
 
 }
 
-export default new DPoPAuthenticator();
+export default new InruptAuthenticator();

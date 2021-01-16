@@ -1,17 +1,20 @@
 import Authenticator, { AuthSession } from '@/authentication/Authenticator';
-import DPoPAuthenticator from '@/authentication/DPoPAuthenticator';
+import CommunityAuthenticator from '@/authentication/CommunityAuthenticator';
+import InruptAuthenticator from '@/authentication/InruptAuthenticator';
 import LegacyAuthenticator from '@/authentication/LegacyAuthenticator';
 
 export type { AuthSession };
 
 export enum AuthenticationMethod {
-    DPoP = 'dpop',
+    Inrupt = 'inrupt',
+    Community = 'community',
     Legacy = 'legacy',
 }
 
-export const defaultAuthenticationMethod = AuthenticationMethod.DPoP;
+export const defaultAuthenticationMethod = AuthenticationMethod.Inrupt;
 
 export const authenticators: Record<AuthenticationMethod, Authenticator> = {
-    [AuthenticationMethod.DPoP]: DPoPAuthenticator,
+    [AuthenticationMethod.Inrupt]: InruptAuthenticator,
+    [AuthenticationMethod.Community]: CommunityAuthenticator,
     [AuthenticationMethod.Legacy]: LegacyAuthenticator,
 };

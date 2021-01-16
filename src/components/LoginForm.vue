@@ -107,19 +107,23 @@ import { safe } from '@/utils';
 import Auth from '@/services/Auth';
 
 const authenticationMethodNames: Record<AuthenticationMethod, string> = {
-    [AuthenticationMethod.DPoP]: 'Inrupt\'s authentication library',
+    [AuthenticationMethod.Inrupt]: 'Inrupt\'s authentication library',
+    [AuthenticationMethod.Community]: 'the community authentication library',
     [AuthenticationMethod.Legacy]: 'the legacy authentication library',
 };
 
 const authenticationMethodDescriptions: Record<AuthenticationMethod, string> = {
-    [AuthenticationMethod.DPoP]:
+    [AuthenticationMethod.Inrupt]:
         'Inrupt\'s authentication library uses DPoP, and most servers should work using this method.',
+    [AuthenticationMethod.Community]:
+        'The community authentication library uses DPoP, and most servers should work using this method.',
     [AuthenticationMethod.Legacy]:
         'This authentication method is no longer recommended, but some old servers may need to use it.',
 };
 
 const authenticationMethodUrls: Record<AuthenticationMethod, string> = {
-    [AuthenticationMethod.DPoP]: 'https://github.com/inrupt/solid-client-authn-js',
+    [AuthenticationMethod.Inrupt]: 'https://github.com/inrupt/solid-client-authn-js',
+    [AuthenticationMethod.Community]: 'https://github.com/solid/solid-auth-fetcher',
     [AuthenticationMethod.Legacy]: 'https://github.com/solid/solid-auth-client',
 };
 
