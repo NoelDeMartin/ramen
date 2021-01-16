@@ -2,7 +2,7 @@
     <div class="flex flex-col items-center space-y-8">
         <div class="flex flex-col items-center space-y-4">
             <AppIcon name="crying" class="w-20 h-20" />
-            <span class="items-center text-3xl font-light">You don't know how to make Ramen</span>
+            <span class="items-center text-3xl font-light text-center">You don't know how to make Ramen</span>
         </div>
         <button
             type="button"
