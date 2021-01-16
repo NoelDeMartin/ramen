@@ -1,7 +1,7 @@
 <template>
     <div class="flex self-stretch justify-between p-4">
         <div v-if="profile" class="flex flex-col space-y-2">
-            <div class="flex items-center text-sm" :title="`Your Web Id: ${profile.webId}`">
+            <div class="flex items-center text-sm" :title="`Your Web Id is ${profile.webId}`">
                 <AppIcon name="user" class="w-4 h-4 mr-2" />
                 <a
                     class="text-gray-700 hover:text-gray-900 hover:underline"
@@ -14,7 +14,7 @@
             <div
                 v-if="cookbook"
                 class="flex items-center text-sm"
-                :title="`Your recipes container: ${cookbook.url}`"
+                :title="`Your recipes container is ${cookbook.url}`"
             >
                 <AppIcon name="book" class="w-4 h-4 mr-2" />
                 <a
