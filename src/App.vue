@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col items-center w-screen h-screen overflow-auto text-base antialiased font-normal leading-tight text-gray-900 bg-yellow-50 font-ubuntu">
-        <AppHeader v-if="isLoggedIn" />
+        <AppHeader v-if="showHeader" />
 
         <div class="flex items-center self-stretch justify-center flex-grow p-10">
             <div
@@ -58,6 +58,7 @@ type Data = {
     showLoading: boolean,
     isLoading: boolean;
     isLoggedIn: boolean;
+    wasLoggedIn: boolean;
     isCookbookAvailable: boolean;
     ramen: Recipe | null;
     errorMessage: string | null;
@@ -78,10 +79,16 @@ export default defineComponent({
         showLoading: false,
         isLoading: true,
         isLoggedIn: false,
+        wasLoggedIn: false,
         isCookbookAvailable: false,
         ramen: null,
         errorMessage: null,
     }),
+    computed: {
+        showHeader(): boolean {
+            return this.isLoggedIn || (!!this.errorMessage && this.wasLoggedIn);
+        },
+    },
     async created() {
         try {
             await Promise.all([
@@ -98,6 +105,7 @@ export default defineComponent({
             this.errorMessage = error.message;
         } finally {
             this.isLoggedIn = Auth.isLoggedIn;
+            this.wasLoggedIn = Auth.wasLoggedIn;
             this.isLoading = false;
             this.showLoading = false;
         }
