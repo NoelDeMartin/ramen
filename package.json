@@ -11,7 +11,7 @@
   "dependencies": {
     "@headlessui/vue": "^0.2.0",
     "@inrupt/solid-client-authn-browser": "^1.2.0",
-    "@noeldemartin/utils": "0.0.1-next.bbab278eff3df59e459afe382dbb16a373777aa9",
+    "@noeldemartin/utils": "0.0.1-next.2ec8e71341786e1ee19f80f0380492c5bc62be9d",
     "n3": "^1.6.4",
     "rdf-js": "^1.0.2",
     "solid-auth-client": "^2.4.1",

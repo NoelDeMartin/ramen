@@ -1,10 +1,8 @@
-import { after, PromisedValue, silenced, Storage, urlBase } from '@noeldemartin/utils';
+import { after, PromisedValue, silenced, Storage, urlRoot } from '@noeldemartin/utils';
 import { Fetch, SolidEngine } from 'soukai-solid';
 import Soukai from 'soukai';
 
-import { AuthSession } from '@/authentication/Authenticator';
-import DPoPAuthenticator from '@/authentication/DPoPAuthenticator';
-import LegacyAuthenticator from '@/authentication/LegacyAuthenticator';
+import { authenticators, defaultAuthenticationMethod, AuthenticationMethod, AuthSession } from '@/authentication';
 import RDFStore from '@/utils/RDFStore';
 
 export type UserProfile = {
@@ -16,33 +14,28 @@ export type UserProfile = {
     oidcIssuerUrl?: string;
 }
 
-export type AuthStorage = {
+export type AuthPreviousLogin = {
     loginUrl: string;
-    supportsDPoP: boolean;
+    authenticationMethod: AuthenticationMethod;
 }
-
-// TODO replace this for a way to know for sure when a provider doesn't support DPoP, and use DPoP by default
-const KNOWN_DPOP_ISSUERS: RegExp[] = [
-    /^https?:\/\/broker\.(pod|pod-compat|demo-ess)\.inrupt\.com/,
-];
 
 class Auth {
 
     private session: AuthSession | null = null;
     private _ready: PromisedValue<void> = new PromisedValue();
     private _profile: PromisedValue<UserProfile> | null = null;
-    private _storage: AuthStorage | null = null;
+    private _previousLogin: AuthPreviousLogin | null = null;
 
     public get isLoggedIn(): boolean {
         return !!this.session;
     }
 
     public get wasLoggedIn(): boolean {
-        return !!this._storage;
+        return !!this._previousLogin;
     }
 
-    public get oldLoginUrl(): string | null {
-        return this._storage?.loginUrl ?? null;
+    public get previousLogin(): AuthPreviousLogin | null {
+        return this._previousLogin ?? null;
     }
 
     public get profile(): Promise<UserProfile | null> {
@@ -67,21 +60,23 @@ class Auth {
         this._ready.resolve();
     }
 
-    public async login(loginUrl: string): Promise<void> {
+    public async login(
+        loginUrl: string,
+        authenticationMethod: AuthenticationMethod = defaultAuthenticationMethod,
+    ): Promise<void> {
         if (this.session)
             return;
 
         const profile = await this.readProfileFromLoginUrl(loginUrl);
-        const oidcIssuer = profile?.oidcIssuerUrl ?? urlBase(profile?.webId ?? loginUrl);
-        const supportsDPoP = await this.supportsDPoPAuthenticaton(oidcIssuer, profile);
-        const authenticator = supportsDPoP ? DPoPAuthenticator : LegacyAuthenticator;
-        const storage: AuthStorage = { loginUrl, supportsDPoP };
+        const oidcIssuerUrl = profile?.oidcIssuerUrl ?? urlRoot(profile?.webId ?? loginUrl);
+        const loginData: AuthPreviousLogin = { loginUrl, authenticationMethod };
+        const authenticator = authenticators[authenticationMethod];
 
-        Storage.set('auth', storage);
+        Storage.set('auth', loginData);
 
         try {
             await authenticator.boot();
-            await authenticator.login(oidcIssuer);
+            await authenticator.login(oidcIssuerUrl);
         } catch (error) {
             Storage.remove('auth');
 
@@ -96,7 +91,7 @@ class Auth {
     public async logout(): Promise<void> {
         if (this.wasLoggedIn) {
             Storage.remove('auth');
-            this._storage = null;
+            this._previousLogin = null;
         }
 
         if (this.session)
@@ -113,9 +108,9 @@ class Auth {
         if (!Storage.has('auth'))
             return;
 
-        this._storage = Storage.get('auth') as AuthStorage;
+        this._previousLogin = Storage.get('auth') as AuthPreviousLogin;
 
-        const authenticator = this._storage.supportsDPoP ? DPoPAuthenticator : LegacyAuthenticator;
+        const authenticator = authenticators[this._previousLogin.authenticationMethod];
 
         authenticator.addListener({
             sessionStarted: session => {
@@ -135,7 +130,7 @@ class Auth {
 
         return await readProfile(loginUrl)
             ?? await readProfile(loginUrl.replace(/\/$/, '').concat('/profile/card#me'))
-            ?? await readProfile(urlBase(loginUrl).concat('/profile/card#me'));
+            ?? await readProfile(urlRoot(loginUrl).concat('/profile/card#me'));
     }
 
     private async readProfile(webId: string): Promise<UserProfile> {
@@ -161,38 +156,6 @@ class Auth {
             name: store.statement(webId, 'foaf:name')?.object.value,
             oidcIssuerUrl: store.statement(webId, 'solid:oidcIssuer')?.object.value,
         };
-    }
-
-    private async supportsDPoPAuthenticaton(oidcIssuer: string, profile: UserProfile | null): Promise<boolean> {
-        return await this.oidcIssuerSupportsDPoP(oidcIssuer)
-            || await this.authorizesDPoPRequests(profile)
-            || KNOWN_DPOP_ISSUERS.some(issuerRegex => issuerRegex.test(oidcIssuer));
-    }
-
-    private async oidcIssuerSupportsDPoP(oidcIssuer: string): Promise<boolean> {
-        try {
-            const configUrl = `${oidcIssuer}/.well-known/openid-configuration`;
-            const config = await this.fetch(configUrl).then(res => res.json()) as { token_types_supported: string[] };
-
-            return config.token_types_supported.map(token => token.toLowerCase()).includes('dpop');
-        } catch (error) {
-            return false;
-        }
-    }
-
-    private async authorizesDPoPRequests(profile: UserProfile | null): Promise<boolean> {
-        if (!profile?.privateTypeIndexUrl)
-            return false;
-
-        try {
-            const response = await window.fetch(profile.privateTypeIndexUrl, {
-                headers: { Authorization: 'DPoP invalidtoken' },
-            });
-
-            return response.status === 401;
-        } catch (error) {
-            return false;
-        }
     }
 
 }
