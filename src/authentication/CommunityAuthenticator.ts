@@ -21,8 +21,6 @@ class CommunityAuthenticator extends Authenticator {
 
         const session = await getSession();
 
-        console.log({ session });
-
         if (session?.loggedIn)
             this.onSessionStarted({ webId: session.webId });
     }
