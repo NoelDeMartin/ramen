@@ -28,6 +28,7 @@ class InruptAuthenticator extends Authenticator {
     public async login(oidcIssuer: string): Promise<void> {
         await this.session.login({
             oidcIssuer,
+            clientName: 'Ramen',
             redirectUrl: window.location.href,
         });
     }

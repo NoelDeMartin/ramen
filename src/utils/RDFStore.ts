@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DocumentFormat, Fetch, MalformedDocumentError } from 'soukai-solid';
-import { Parser as TurtleParser } from 'n3';
-import { Quad } from 'rdf-js';
+import { Quad, Parser as TurtleParser } from 'n3';
 
 const knownPrefixes: { [prefix: string]: string } = {
     solid: 'http://www.w3.org/ns/solid/terms#',

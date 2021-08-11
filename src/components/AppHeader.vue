@@ -42,15 +42,16 @@
 import { defineComponent, ref } from 'vue';
 
 import { safe } from '@/utils';
+import { SolidUserProfile } from '@noeldemartin/solid-utils';
 
 import CookbookModel from '@/models/soukai/Cookbook';
 
-import Auth, { UserProfile } from '@/services/Auth';
+import Auth from '@/services/Auth';
 import Cookbook from '@/services/Cookbook';
 
 export default defineComponent({
     setup() {
-        const profile = ref<UserProfile | null>(null);
+        const profile = ref<SolidUserProfile | null>(null);
         const cookbook = ref<CookbookModel | null>(null);
         const showInfo = ref<boolean>(false);
 

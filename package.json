@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@headlessui/vue": "^0.2.0",
-    "@inrupt/solid-client-authn-browser": "^1.2.0",
+    "@inrupt/solid-client-authn-browser": "^1.10.1",
+    "@noeldemartin/solid-utils": "0.0.0-next.ed09dba2be2f93bfec54aec8b0d57a86eff39358",
     "@noeldemartin/utils": "0.0.1-next.2ec8e71341786e1ee19f80f0380492c5bc62be9d",
     "n3": "^1.6.4",
     "rdf-js": "^1.0.2",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@noeldemartin/eslint-config-typescript": "0.0.0-next.d39885dee15d1b0c41b44fb07592ffe3e431d9e2",
     "@tailwindcss/forms": "^0.2.1",
+    "@types/n3": "^1.10.3",
     "@types/webpack-env": "^1.16.0",
     "@vue/cli-plugin-babel": "^4.5.9",
     "@vue/cli-plugin-eslint": "^4.5.9",

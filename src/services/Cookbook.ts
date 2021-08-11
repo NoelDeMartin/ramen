@@ -1,11 +1,12 @@
-import { PromisedValue, uuid } from '@noeldemartin/utils';
+import { arrayFilter, PromisedValue, uuid } from '@noeldemartin/utils';
+import { createPrivateTypeIndex, SolidUserProfile } from '@noeldemartin/solid-utils';
 
 import RDFStore from '@/utils/RDFStore';
 
 import CookbookModel from '@/models/soukai/Cookbook';
 import TypeRegistration from '@/models/soukai/TypeRegistration';
 
-import Auth, { UserProfile } from '@/services/Auth';
+import Auth from '@/services/Auth';
 
 class Cookbook {
 
@@ -43,7 +44,7 @@ class Cookbook {
     }
 
     private async registerModel(model: CookbookModel): Promise<void> {
-        const profile = await Auth.profile as UserProfile;
+        const profile = await Auth.profile as SolidUserProfile;
         const typeRegistration = new TypeRegistration({
             forClass: 'https://schema.org/Recipe',
             instanceContainer: model.url,
@@ -76,7 +77,7 @@ class Cookbook {
     }
 
     private async readCookbookUrls(): Promise<string[]> {
-        const profile = await Auth.profile as UserProfile;
+        const profile = await Auth.profile as SolidUserProfile;
         const findCookbooks = async (typeIndexUrl: string) => {
             const store = await RDFStore.fromUrl(Auth.fetch, typeIndexUrl);
 
@@ -94,10 +95,15 @@ class Cookbook {
                 .filter(url => !!url) as string[];
         };
 
-        const urls = await Promise.all([
-            findCookbooks(profile.publicTypeIndexUrl),
-            findCookbooks(profile.privateTypeIndexUrl),
-        ]);
+        const typeIndexUrls = arrayFilter([profile.publicTypeIndexUrl, profile.privateTypeIndexUrl]);
+
+        if (typeIndexUrls.length === 0) {
+            profile.privateTypeIndexUrl = await createPrivateTypeIndex(profile, Auth.fetch);
+
+            typeIndexUrls.push(profile.privateTypeIndexUrl);
+        }
+
+        const urls = await Promise.all(typeIndexUrls.map(url => findCookbooks(url)));
 
         return urls.flat();
     }
