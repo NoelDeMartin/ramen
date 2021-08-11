@@ -1,5 +1,6 @@
 import { Fetch } from 'soukai-solid';
-import { SolidAuthClient } from 'solid-auth-client';
+import { Storage } from '@noeldemartin/utils';
+import type { SolidAuthClient } from 'solid-auth-client';
 
 import Authenticator from '@/authentication/Authenticator';
 
@@ -37,6 +38,10 @@ class LegacyAuthenticator extends Authenticator {
 
     public async logout(): Promise<void> {
         await this.client.logout();
+
+        // Clean up storage
+        // See https://github.com/solid/solid-auth-client/issues/96
+        Storage.remove('solid-auth-client');
     }
 
 }
