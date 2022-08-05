@@ -19,7 +19,7 @@ The application has been tested with the following implementations:
 - [Node Solid Server](https://github.com/solid/node-solid-server): The app has been tested and works properly with `v5.2.2` and `v5.6.0`.
 - [Enterprise Solid Server](https://inrupt.com/products/enterprise-solid-server/): The app has been tested and works properly (tested in January 2021).
 - [TrinPod](https://trinpod.us/): The app has been tested and works properly (tested in June 2021).
-- [Community Solid Server](https://github.com/solid/community-server): The app has been tested and works properly with `v1.0.0`.
+- [Community Solid Server](https://github.com/solid/community-server): The app has been tested and works properly with `v3.0.0`.
 - [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): The app has been tested, but the server requires multiple fixes to work properly. Those are being discussed in [pdsinterop/php-solid-server#42](https://github.com/pdsinterop/php-solid-server/issues/42).
 
 ## Attributions
