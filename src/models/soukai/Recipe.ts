@@ -1,35 +1,32 @@
+import RecipeInstructionsStep from '@/models/soukai/RecipeInstructionsStep';
 import { stringToSlug, urlResolve } from '@noeldemartin/utils';
-import { FieldType } from 'soukai';
-import { SolidModel } from 'soukai-solid';
+import { Relation } from 'soukai';
+import { SolidBelongsToManyRelation } from 'soukai-solid';
 
-export default class Recipe extends SolidModel {
+import Model from './Recipe.schema';
+
+export default class Recipe extends Model {
 
     public static rdfContexts = { schema: 'https://schema.org/' };
     public static rdfsClasses = ['Recipe'];
-    public static fields = {
-        name: {
-            type: FieldType.String,
-            required: true,
-        },
-        ingredients: {
-            type: FieldType.Array,
-            items: FieldType.String,
-            rdfProperty: 'recipeIngredient',
-        },
-        instructions: {
-            type: FieldType.String,
-            rdfProperty: 'recipeInstructions',
-        },
-        externalUrls: {
-            type: FieldType.Array,
-            items: FieldType.String,
-            rdfProperty: 'sameAs',
-        },
-    };
+
+    declare public instructions?: RecipeInstructionsStep[];
+    declare public relatedInstructions: SolidBelongsToManyRelation<
+        this,
+        RecipeInstructionsStep,
+        typeof RecipeInstructionsStep
+    >;
+
+    public instructionsRelationship(): Relation {
+        return this
+            .belongsToMany(RecipeInstructionsStep, 'instructionSteps')
+            .onDelete('cascade')
+            .usingSameDocument(true);
+    }
 
     protected newUrl(documentUrl?: string, resourceHash?: string): string {
-        documentUrl = documentUrl ?? urlResolve(this.modelClass.collection, stringToSlug(this.name));
-        resourceHash = resourceHash ?? this.modelClass.defaultResourceHash;
+        documentUrl = documentUrl ?? urlResolve(this.static().collection, stringToSlug(this.name));
+        resourceHash = resourceHash ?? this.static().defaultResourceHash;
 
         return `${documentUrl}#${resourceHash}`;
     }

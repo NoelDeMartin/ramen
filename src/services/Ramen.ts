@@ -31,7 +31,16 @@ class Ramen {
         if (!Cookbook.model)
             throw new Error('You don\'t have a cookbook!');
 
-        const model = await Cookbook.model.relatedRecipes.create(junsRamen);
+        const ramen = new Recipe(junsRamen);
+
+        for (let index = 0; index < junsRamen.instructions.length; index++) {
+            ramen.relatedInstructions.attach({
+                position: index + 1,
+                text: junsRamen.instructions[index],
+            });
+        }
+
+        const model = await Cookbook.model.relatedRecipes.save(ramen);
 
         this._model.resolve(model);
     }
