@@ -1,7 +1,7 @@
 import { after, PromisedValue, Storage, urlRoot } from '@noeldemartin/utils';
 import { fetchLoginUserProfile, SolidUserProfile } from '@noeldemartin/solid-utils';
 import { Fetch, SolidEngine } from 'soukai-solid';
-import Soukai from 'soukai';
+import { setEngine } from 'soukai';
 
 import { authenticators, defaultAuthenticationMethod, AuthenticationMethod, AuthSession } from '@/authentication';
 
@@ -113,7 +113,7 @@ class Auth {
                     return;
 
                 this.session = session;
-                Soukai.useEngine(new SolidEngine(this.fetch));
+                setEngine(new SolidEngine(this.fetch));
             },
         });
 
