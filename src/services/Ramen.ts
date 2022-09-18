@@ -31,12 +31,13 @@ class Ramen {
         if (!Cookbook.model)
             throw new Error('You don\'t have a cookbook!');
 
-        const ramen = new Recipe(junsRamen);
+        const { instructions, ...attributes } = junsRamen;
+        const ramen = new Recipe(attributes);
 
-        for (let index = 0; index < junsRamen.instructions.length; index++) {
+        for (let index = 0; index < instructions.length; index++) {
             ramen.relatedInstructions.attach({
                 position: index + 1,
-                text: junsRamen.instructions[index],
+                text: instructions[index],
             });
         }
 
