@@ -8,7 +8,7 @@ export default SolidModel.schema({
     },
     description: FieldType.String,
     imageUrl: {
-        type: FieldType.String,
+        type: FieldType.Key,
         rdfProperty: 'schema:image',
     },
     servings: {
@@ -30,6 +30,6 @@ export default SolidModel.schema({
     externalUrls: {
         type: FieldType.Array,
         rdfProperty: 'schema:sameAs',
-        items: FieldType.String,
+        items: FieldType.Key,
     },
 });
