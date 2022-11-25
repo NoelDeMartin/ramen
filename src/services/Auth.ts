@@ -35,7 +35,7 @@ class Auth {
 
         if (!this._profile)
             this._profile = PromisedValue.from(
-                fetchLoginUserProfile(this.session.webId) as Promise<SolidUserProfile>,
+                fetchLoginUserProfile(this.session.webId, this.fetch) as Promise<SolidUserProfile>,
             );
 
         return this._profile;
