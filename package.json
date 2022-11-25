@@ -11,14 +11,14 @@
   "dependencies": {
     "@headlessui/vue": "^0.2.0",
     "@inrupt/solid-client-authn-browser": "^1.12.2",
-    "@noeldemartin/solid-utils": "^0.1.1-next.3f3913186d2f0057ac597f5ee187ec5132fbeeda",
-    "@noeldemartin/utils": "^0.2.1-next.358018707f76deaa621891d9ccb26373e6019fed",
+    "@noeldemartin/solid-utils": "^0.1.1-next.0d98b8599ef41e8aa2544f3da0243b4dcb5f78f5",
+    "@noeldemartin/utils": "^0.2.1-next.6b17f2fc333f9389f0f4ebca96f962cd2172ee26",
     "n3": "^1.6.4",
     "rdf-js": "^1.0.2",
     "solid-auth-client": "^2.4.1",
     "solid-auth-fetcher": "^1.3.5",
-    "soukai": "^0.4.1-next.6feb3d2e460f5b0522f6e9f1ebc1dd43b0730079",
-    "soukai-solid": "^0.4.1-next.151a095039926e76c3471a674b519b6679fb6530",
+    "soukai": "^0.4.1-next.8c6c2ff3c6dd034157a520acbb403dc8fb513c09",
+    "soukai-solid": "^0.4.1-next.975be9222de0cc9c8cbb7b58cff0a7a528ea42f6",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
     "vue": "^3.0.4"
   },
