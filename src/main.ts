@@ -1,12 +1,13 @@
-import { createApp } from 'vue';
+import i18n from '@aerogel/plugin-i18n';
+import soukai from '@aerogel/plugin-soukai';
+import { bootstrapApplication } from '@aerogel/core';
 
+import './assets/styles.css';
 import App from './App.vue';
-import AppIcon from './components/AppIcon.vue';
 
-import './main.css';
-import './models';
-
-const app = createApp(App);
-
-app.component('AppIcon', AppIcon);
-app.mount('#app');
+bootstrapApplication(App, {
+    plugins: [
+        i18n({ messages: import.meta.glob('@/lang/*.yaml') }),
+        soukai({ models: import.meta.glob('@/models/*', { eager: true }) }),
+    ],
+});

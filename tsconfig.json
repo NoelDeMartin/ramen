@@ -4,24 +4,16 @@
         "module": "esnext",
         "moduleResolution": "node",
         "strict": true,
-        "sourceMap": true,
-        "esModuleInterop": true,
         "skipLibCheck": true,
-        "isolatedModules": true,
+        "noUncheckedIndexedAccess": true,
+        "jsx": "preserve",
         "resolveJsonModule": true,
+        "esModuleInterop": true,
         "lib": ["esnext", "dom"],
         "baseUrl": ".",
         "paths": {
-            "@/*": [
-              "src/*"
-            ]
-        },
+            "@/*": ["./src/*"]
+        }
     },
-    "include": [
-        "src/**/*.ts",
-        "src/**/*.vue"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+    "include": ["src/**/*.ts", "src/**/*.vue"]
 }
