@@ -1,4 +1,4 @@
-# 🍜 Ramen [![Build Status](https://semaphoreci.com/api/v1/noeldemartin/ramen/branches/main/badge.svg)](https://semaphoreci.com/noeldemartin/ramen)
+# 🍜 Ramen ![CI](https://github.com/NoelDeMartin/ramen/actions/workflows/ci.yml/badge.svg)
 
 Can you make Ramen? [Let's find out!](https://ramen.noeldemartin.com)
 
@@ -16,15 +16,15 @@ At the moment, users have to log in again after refreshing the page using the de
 
 The application has been tested with the following implementations:
 
-- [Node Solid Server](https://github.com/solid/node-solid-server): The app has been tested and works properly with `v5.2.2` and `v5.6.0`.
-- [Enterprise Solid Server](https://inrupt.com/products/enterprise-solid-server/): The app has been tested and works properly (tested in January 2021).
-- [TrinPod](https://trinpod.us/): The app has been tested and works properly (tested in June 2021).
-- [Community Solid Server](https://github.com/solid/community-server): The app has been tested and works properly with `v5.1.0`.
-- [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): The app has been tested, but the server requires multiple fixes to work properly. Those are being discussed in [pdsinterop/php-solid-server#42](https://github.com/pdsinterop/php-solid-server/issues/42).
+-   [Node Solid Server](https://github.com/solid/node-solid-server): The app has been tested and works properly with `v5.2.2` and `v5.6.0`.
+-   [Enterprise Solid Server](https://inrupt.com/products/enterprise-solid-server/): The app has been tested and works properly (tested in January 2021).
+-   [TrinPod](https://trinpod.us/): The app has been tested and works properly (tested in June 2021).
+-   [Community Solid Server](https://github.com/solid/community-server): The app has been tested and works properly with `v5.1.0`.
+-   [PHP Solid Server](https://github.com/pdsinterop/php-solid-server): The app has been tested, but the server requires multiple fixes to work properly. Those are being discussed in [pdsinterop/php-solid-server#42](https://github.com/pdsinterop/php-solid-server/issues/42).
 
 ## Attributions
 
-- SVG icons by [heroicons](https://heroicons.com) and [Zondicons](https://www.zondicons.com).
-- SVG loaders by [Sam Herbert](https://samherbert.net/svg-loaders).
-- Emojis by [Twitter](https://github.com/twitter/twemoji).
-- Ubuntu font by [Canonical](https://design.ubuntu.com/font).
+-   SVG icons by [heroicons](https://heroicons.com) and [Zondicons](https://www.zondicons.com).
+-   SVG loaders by [Sam Herbert](https://samherbert.net/svg-loaders).
+-   Emojis by [Twitter](https://github.com/twitter/twemoji).
+-   Ubuntu font by [Canonical](https://design.ubuntu.com/font).
