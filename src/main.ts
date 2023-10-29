@@ -4,10 +4,12 @@ import { bootstrapApplication } from '@aerogel/core';
 
 import './assets/styles.css';
 import App from './App.vue';
+import solid from '@aerogel/plugin-solid';
 
 bootstrapApplication(App, {
     plugins: [
         i18n({ messages: import.meta.glob('@/lang/*.yaml') }),
         soukai({ models: import.meta.glob('@/models/*', { eager: true }) }),
+        solid(),
     ],
 });

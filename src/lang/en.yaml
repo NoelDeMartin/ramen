@@ -1,3 +1,17 @@
-home:
-  title: Aerogel
-  getStarted: Get started
+welcome: Hello, [{name}]({url})!
+
+login:
+    title: Log in with Solid
+    url: Login url
+    urlPlaceholder: Introduce your webId or identity provider
+    submit: Login
+    previous: You were logged in with [{url}]({url})
+    logout: Forget it
+    reconnect: Log in again
+    errorInfo: 'Error: {message}'
+    errorReconnect: Reconnect
+    errorLogout: Logout
+    errorInspect: Inspect
+
+footer:
+    help: What is this?

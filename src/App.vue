@@ -1,13 +1,10 @@
 <template>
     <AGAppLayout>
-        <main class="flex flex-grow flex-col items-center justify-center bg-blue-50">
-            <h1 class="text-4xl font-semibold">
-                {{ $t('home.title') }}
-            </h1>
-            <a href="https://aerogel.js.org" target="_blank" class="mt-2 underline opacity-75 hover:opacity-100">
-                {{ $t('home.getStarted') }}
-            </a>
-            <i-zondicons-user class="w-4 h-4" />
-        </main>
+        <div
+            class="flex h-screen w-screen flex-col items-center overflow-auto bg-yellow-50 text-base font-normal leading-tight text-gray-900 antialiased"
+        >
+            <AppMain />
+            <AppFooter />
+        </div>
     </AGAppLayout>
 </template>
