@@ -15,3 +15,8 @@ login:
 
 footer:
     help: What is this?
+
+loginError:
+    title: Login failed
+    description: Something went wrong and it was not possible to log in.
+    inspect: View details

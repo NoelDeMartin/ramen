@@ -8,7 +8,7 @@
         />
 
         <div class="mt-4 flex gap-3">
-            <AGButton @click="$solid.reconnect(true)">
+            <AGButton @click="$solid.reconnect({ force: true })">
                 {{ $t('login.errorReconnect') }}
             </AGButton>
             <AGButton @click="$solid.logout(true)">

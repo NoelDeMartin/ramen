@@ -8,10 +8,23 @@ describe('App', () => {
     });
 
     it('Logs in', () => {
+        // Arrange
         cy.see('Log in with Solid');
-        cy.ariaInput('Login url').type(`${cssPodUrl()}{enter}`);
+
+        // Act
+        cy.ariaInput('Login url').clear().type(`${cssPodUrl()}{enter}`);
         cy.cssLogin();
-        cy.see('Hello');
+
+        // Assert
+        cy.see('Are you ready to cook?');
+    });
+
+    it('Logs in with invalid url', () => {
+        // Act
+        cy.ariaInput('Login url').clear().type('notavalidurl{enter}');
+
+        // Assert
+        cy.see('Login failed');
     });
 
 });

@@ -8,13 +8,13 @@
                 {{ $t('login.title') }}
             </h2>
         </div>
-        <AGForm :form="form" class="flex flex-col" @submit="$solid.login(form.loginUrl)">
+        <AGForm :form="form" class="flex flex-col" @submit="$ui.loading($solid.login(form.loginUrl, { onError }))">
             <AGInput name="loginUrl" :aria-label="$t('login.url')" :placeholder="$t('login.urlPlaceholder')" />
             <AGButton submit class="mt-2">
                 {{ $t('login.submit') }}
             </AGButton>
         </AGForm>
-        <div v-if="$solid.wasLoggedIn" class="mt-4 flex flex-col">
+        <div v-if="$solid.wasLoggedIn && !$solid.loginOngoing" class="mt-4 flex flex-col">
             <AGMarkdown
                 lang-key="login.previous"
                 :lang-params="{ url: $solid.previousSession?.loginUrl }"
@@ -22,7 +22,7 @@
                 inline
             />
             <div class="mt-2 flex w-full justify-center gap-3">
-                <AGButton @click="$solid.reconnect(true)">
+                <AGButton @click="$ui.loading($solid.reconnect({ onError, force: true }))">
                     {{ $t('login.reconnect') }}
                 </AGButton>
                 <AGButton @click="$solid.logout(true)">
@@ -34,7 +34,15 @@
 </template>
 
 <script setup lang="ts">
-import { requiredStringInput, useForm } from '@aerogel/core';
+import { UI, requiredStringInput, useForm } from '@aerogel/core';
 
-const form = useForm({ loginUrl: requiredStringInput() });
+import LoginErrorModal from '@/components/modals/LoginErrorModal.vue';
+import type { ErrorSource } from '@aerogel/core';
+
+const form = useForm({ loginUrl: requiredStringInput('https://') });
+
+function onError(error: ErrorSource): void {
+    form.reset({ keepData: true });
+    UI.openModal(LoginErrorModal, { error });
+}
 </script>
