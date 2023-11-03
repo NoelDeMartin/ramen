@@ -27,4 +27,19 @@ describe('App', () => {
         cy.see('Login failed');
     });
 
+    it('Logs out', () => {
+        // Arrange
+        cy.ariaInput('Login url').clear().type(`${cssPodUrl()}{enter}`);
+        cy.cssLogin();
+
+        // Act
+        cy.ariaLabel('Logout').click();
+        cy.contains('[role="dialog"]', 'Are you sure you want to log out?').within(() => {
+            cy.press('OK');
+        });
+
+        // Assert
+        cy.see('Log in with Solid');
+    });
+
 });

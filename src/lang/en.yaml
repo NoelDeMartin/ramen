@@ -1,5 +1,3 @@
-welcome: Hello, [{name}]({url})!
-
 login:
     title: Log in with Solid
     url: Login url
@@ -12,6 +10,10 @@ login:
     errorReconnect: Reconnect
     errorLogout: Logout
     errorInspect: Inspect
+
+header:
+    account: Your Web Id is {webId}
+    logout: Logout
 
 footer:
     help: What is this?
