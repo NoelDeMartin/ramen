@@ -11,6 +11,9 @@ login:
     errorLogout: Logout
     errorInspect: Inspect
 
+cookbook:
+    notFound: You don't have a place to store your recipes
+
 header:
     account: Your Web Id is {webId}
     logout: Logout

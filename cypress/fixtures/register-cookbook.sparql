@@ -1,0 +1,6 @@
+INSERT DATA {
+    <#cookbook>
+        a <http://www.w3.org/ns/solid/terms#TypeRegistration> ;
+        <http://www.w3.org/ns/solid/terms#forClass> <https://schema.org/Recipe> ;
+        <http://www.w3.org/ns/solid/terms#instanceContainer> </alice/recipes/> .
+}

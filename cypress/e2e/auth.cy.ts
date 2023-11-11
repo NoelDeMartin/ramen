@@ -1,9 +1,9 @@
-import { cssPodUrl } from '@aerogel/cypress';
+import { cssPodWebId, cssUrl } from '@aerogel/cypress';
 
-describe('App', () => {
+describe('Auth', () => {
 
     beforeEach(() => {
-        cy.resetSolid();
+        cy.solidReset();
         cy.visit('/');
     });
 
@@ -12,11 +12,12 @@ describe('App', () => {
         cy.see('Log in with Solid');
 
         // Act
-        cy.ariaInput('Login url').clear().type(`${cssPodUrl()}{enter}`);
+        cy.ariaInput('Login url').clear().type(`${cssUrl()}{enter}`);
         cy.cssLogin();
 
         // Assert
-        cy.see('Are you ready to cook?');
+        cy.see('Alice Cooper');
+        cy.see(`Your Web Id is ${cssPodWebId()}`, { srOnly: true });
     });
 
     it('Logs in with invalid url', () => {
@@ -29,7 +30,7 @@ describe('App', () => {
 
     it('Logs out', () => {
         // Arrange
-        cy.ariaInput('Login url').clear().type(`${cssPodUrl()}{enter}`);
+        cy.ariaInput('Login url').clear().type(`${cssUrl()}{enter}`);
         cy.cssLogin();
 
         // Act
@@ -39,7 +40,7 @@ describe('App', () => {
         });
 
         // Assert
-        cy.see('Log in with Solid');
+        cy.dontSee('Alice Cooper');
     });
 
 });
