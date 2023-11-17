@@ -12,6 +12,11 @@ login:
     errorInspect: Inspect
 
 cookbook:
+    create: Create cookbook
+    createSeparator: at
+    creating: Creating cookbook...
+    addUrl: Add url
+    addUrlPrompt: Where do you want to store your cookbook?
     notFound: You don't have a place to store your recipes
 
 header:
