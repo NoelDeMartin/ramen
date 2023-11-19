@@ -18,9 +18,15 @@ cookbook:
     addUrl: Add url
     addUrlPrompt: Where do you want to store your cookbook?
     notFound: You don't have a place to store your recipes
+    noRamen: You don't know how to make Ramen
+    addRamen: Teach me
+    addingRamen: Teaching you how to make Ramen...
+    ramen: You know how to make Ramen!
+    seeRamen: Your Ramen recipe is at {url}
 
 header:
     account: Your Web Id is {webId}
+    cookbook: Your recipes are stored in {url}
     logout: Logout
 
 footer:

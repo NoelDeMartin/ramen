@@ -5,6 +5,9 @@ export default defineSolidModelSchema({
     rdfContext: 'https://schema.org/',
     rdfsClass: 'Recipe',
     fields: {
-        name: FieldType.String,
+        name: {
+            type: FieldType.String,
+            required: true,
+        },
     },
 });
