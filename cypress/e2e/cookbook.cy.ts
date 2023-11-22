@@ -34,7 +34,7 @@ describe('Cookbook', () => {
 
     it('Teaches Ramen', () => {
         // Arrange
-        cy.intercept('PATCH', cssPodUrl('/cookbook/ramen')).as('learnRamen');
+        cy.intercept('PATCH', cssPodUrl('/cookbook/juns-ramen')).as('learnRamen');
 
         cy.createSolidDocument('/settings/privateTypeIndex', 'privateTypeIndex.ttl');
         cy.updateSolidDocument('/settings/privateTypeIndex', 'register-cookbook.sparql', { cookbookId: '#cookbook' });
@@ -50,13 +50,12 @@ describe('Cookbook', () => {
 
         // Assert
         cy.see('You know how to make Ramen!');
-        cy.see(`Your Ramen recipe is at ${cssPodUrl('/cookbook/ramen#it')}`);
+        cy.see(`Your Ramen recipe is at ${cssPodUrl('/cookbook/juns-ramen#it')}`);
 
         cy.get('@learnRamen').its('response.statusCode').should('eq', 201);
-
-        cy.fixture('learn-ramen.sparql').then((sparql) => {
-            cy.get('@learnRamen').its('request.body').should('be.sparql', sparql);
-        });
+        cy.get('@learnRamen').its('request.body').should('include', 'Jun\'s Ramen');
+        cy.get('@learnRamen').its('request.body').should('include', '500g Boston Butt Pork');
+        cy.get('@learnRamen').its('request.body').should('include', 'Itadakimasu!');
     });
 
     it('Finds an existing container', () => {

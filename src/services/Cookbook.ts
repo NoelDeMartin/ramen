@@ -1,6 +1,7 @@
-import { facade } from '@noeldemartin/utils';
+import { facade, tap } from '@noeldemartin/utils';
 import { Solid } from '@aerogel/plugin-solid';
 
+import junsRamen from '@/assets/json/juns-ramen.json';
 import Recipe from '@/models/Recipe';
 import RecipesContainer from '@/models/RecipesContainer';
 
@@ -32,7 +33,13 @@ export class CookbookService extends Service {
             return;
         }
 
-        this.ramen = await this.container.relatedRecipes.create({ name: 'Ramen' });
+        const { instructions, ...attributes } = junsRamen;
+
+        this.ramen = await tap(new Recipe(attributes), async (ramen) => {
+            instructions.forEach((text, index) => ramen.relatedInstructions.attach({ position: index + 1, text }));
+
+            await this.container?.relatedRecipes.save(ramen);
+        });
     }
 
     protected async boot(): Promise<void> {
