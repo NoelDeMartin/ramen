@@ -53,9 +53,9 @@ describe('Cookbook', () => {
         cy.see(`Your Ramen recipe is at ${cssPodUrl('/cookbook/juns-ramen#it')}`);
 
         cy.get('@learnRamen').its('response.statusCode').should('eq', 201);
-        cy.get('@learnRamen').its('request.body').should('include', 'Jun\'s Ramen');
-        cy.get('@learnRamen').its('request.body').should('include', '500g Boston Butt Pork');
-        cy.get('@learnRamen').its('request.body').should('include', 'Itadakimasu!');
+        cy.fixture('learn-ramen.sparql').then((sparql) => {
+            cy.get('@learnRamen').its('request.body').should('be.sparql', sparql);
+        });
     });
 
     it('Finds an existing container', () => {

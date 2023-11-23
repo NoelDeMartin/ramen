@@ -1,0 +1,183 @@
+INSERT DATA {
+    @prefix schema: <https://schema.org/> .
+    @prefix crdt: <https://vocab.noeldemartin.com/crdt/> .
+    @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+    <#it>
+        a schema:Recipe ;
+        schema:name "Jun's Ramen" ;
+        schema:description "Ramen can be done in many ways, and it's one of the most difficult recipes to master. But don't fret! If you follow [Jun](https://www.youtube.com/c/JunsKitchen)'s advice, this will be an excellent way to get started." ;
+        schema:prepTime "P1D" ;
+        schema:cookTime "PT30M" ;
+        schema:recipeYield "3 persons" ;
+        schema:sameAs <https://www.youtube.com/watch?v=9WXIrnWsaCo> ;
+        schema:image <https://i.ytimg.com/vi/9WXIrnWsaCo/hqdefault.jpg> ;
+        schema:recipeIngredient
+            "500g Boston Butt Pork",
+            "200ml Soy Sauce",
+            "150ml Sake",
+            "100ml Mirin",
+            "50ml Bonito Stock Soup (optional)",
+            "3-5 Chicken Wings",
+            "3-5 slices of Ginger",
+            "30g Japanese Anchovy",
+            "15g Bonito Flakes",
+            "15g Kelp",
+            "2 Dried Shiitake Mushrooms",
+            "2 Eggs",
+            "1 Chicken Bone",
+            "1 clove of Garlic",
+            "1 Green Onion",
+            "Any types of clams you want" ;
+        schema:recipeInstructions
+            <#[[instruction-step-1][%uuid%]]>,
+            <#[[instruction-step-2][%uuid%]]>,
+            <#[[instruction-step-3][%uuid%]]>,
+            <#[[instruction-step-4][%uuid%]]>,
+            <#[[instruction-step-5][%uuid%]]>,
+            <#[[instruction-step-6][%uuid%]]>,
+            <#[[instruction-step-7][%uuid%]]>,
+            <#[[instruction-step-8][%uuid%]]>,
+            <#[[instruction-step-9][%uuid%]]>,
+            <#[[instruction-step-10][%uuid%]]>,
+            <#[[instruction-step-11][%uuid%]]>,
+            <#[[instruction-step-12][%uuid%]]>.
+
+    <#it-metadata>
+        a crdt:Metadata ;
+        crdt:resource <#it> ;
+        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
+        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
+
+    <#[[instruction-step-1][%uuid%]]>
+        a schema:HowToStep ;
+        schema:position 1 ;
+        schema:text "Start with the pork. Rub in salt to season. Then, slowly sear the outside." .
+
+    <#[[instruction-step-1][%uuid%]]-metadata>
+        a crdt:Metadata ;
+        crdt:resource <#[[instruction-step-1][%uuid%]]> ;
+        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
+        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
+
+    <#[[instruction-step-2][%uuid%]]>
+        a schema:HowToStep ;
+        schema:position 2 ;
+        schema:text "Next, make the sauce for the pork and boiled eggs. Get the green part of the green onion, a few slices of ginger and crush the garlic. Add sake, mirin, soy sauce, sugar and salt in a pot and heat it up on low heat. Turn off the burner before it boils." .
+
+    <#[[instruction-step-2][%uuid%]]-metadata>
+        a crdt:Metadata ;
+        crdt:resource <#[[instruction-step-2][%uuid%]]> ;
+        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
+        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
+
+    <#[[instruction-step-3][%uuid%]]>
+        a schema:HowToStep ;
+        schema:position 3 ;
+        schema:text "Now wrap the pork with a paper towel and put everything in a zip up bag. Then get rid of the air inside the bag, using a bowl of water makes this process easy. Then place it inside the rice cooker and add boiled water. Press the \"keep warm\" button, and it'll be done cooking in about 3-4 hours. Then keep it in a fridge for half a day." .
+
+    <#[[instruction-step-3][%uuid%]]-metadata>
+        a crdt:Metadata ;
+        crdt:resource <#[[instruction-step-3][%uuid%]]> ;
+        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
+        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
+
+    <#[[instruction-step-4][%uuid%]]>
+        a schema:HowToStep ;
+        schema:position 4 ;
+        schema:text "Now make hard boiled eggs. Making a tiny hole at the bottom of the eggs prevents them from cracking. Boil the eggs for 6 minutes and a half. Take the eggs out and cool them down. When they're cooled down, get rid of the shells. Place eggs in tupperware, and add equal parts of water and sauce. Then, cover them with a paper towel and keep them in the fridge for half a day as well." .
+
+    <#[[instruction-step-4][%uuid%]]-metadata>
+        a crdt:Metadata ;
+        crdt:resource <#[[instruction-step-4][%uuid%]]> ;
+        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
+        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
+
+    <#[[instruction-step-5][%uuid%]]>
+        a schema:HowToStep ;
+        schema:position 5 ;
+        schema:text "Now make the soup. Prepare the soup stock with the following combinations: kombu in soy sauce, kombu in water, mushrooms in water and anchovy katsuobushi in hot water. Next, add green onion, ginger slices, chicken bones and wings in boiled water, and boil them for a minute to get rid of the smell. Place them in cold water and chop the bones into chunks. Put the bones and chicken wings in a pot and cook it on very low heat for an hour." .
+
+    <#[[instruction-step-5][%uuid%]]-metadata>
+        a crdt:Metadata ;
+        crdt:resource <#[[instruction-step-5][%uuid%]]> ;
+        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
+        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
+
+    <#[[instruction-step-6][%uuid%]]>
+        a schema:HowToStep ;
+        schema:position 6 ;
+        schema:text "At the same time, make clam soup. Before cooking the clams, get rid of the sand by adding 3% salt water and wait for half a day. Boil the clams with sake and kombu for 30 minutes on low heat. Skim off scum while boiling." .
+
+    <#[[instruction-step-6][%uuid%]]-metadata>
+        a crdt:Metadata ;
+        crdt:resource <#[[instruction-step-6][%uuid%]]> ;
+        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
+        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
+
+    <#[[instruction-step-7][%uuid%]]>
+        a schema:HowToStep ;
+        schema:position 7 ;
+        schema:text "Cut off the skin of chicken and fry it on low heat until it becomes crispy. Save the chicken oil for the soup and the chicken skin for a topping later." .
+
+    <#[[instruction-step-7][%uuid%]]-metadata>
+        a crdt:Metadata ;
+        crdt:resource <#[[instruction-step-7][%uuid%]]> ;
+        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
+        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
+
+    <#[[instruction-step-8][%uuid%]]>
+        a schema:HowToStep ;
+        schema:position 8 ;
+        schema:text "Make another topping. Cut off the white part of the green onion, cut off the core, and slice it thinly. Soak it in water for 5 minutes." .
+
+    <#[[instruction-step-8][%uuid%]]-metadata>
+        a crdt:Metadata ;
+        crdt:resource <#[[instruction-step-8][%uuid%]]> ;
+        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
+        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
+
+    <#[[instruction-step-9][%uuid%]]>
+        a schema:HowToStep ;
+        schema:position 9 ;
+        schema:text "Now blend all the soup. The blend ratio is completely up to you. For example, if you want the soup to be a little more fishy, then add more bonito stock. One example ratio is 4 fish soup : 3 chicken soup : 1 clam soup : 1 kombu soup : 1 mushroom soup. When the soup is done, add soy sauce with kombu and chicken oil in the ramen bowl first." .
+
+    <#[[instruction-step-9][%uuid%]]-metadata>
+        a crdt:Metadata ;
+        crdt:resource <#[[instruction-step-9][%uuid%]]> ;
+        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
+        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
+
+    <#[[instruction-step-10][%uuid%]]>
+        a schema:HowToStep ;
+        schema:position 10 ;
+        schema:text "Prepare the toppings. Scorch the pork slices. Cut an egg in half. Pour soup in the bowl." .
+
+    <#[[instruction-step-10][%uuid%]]-metadata>
+        a crdt:Metadata ;
+        crdt:resource <#[[instruction-step-10][%uuid%]]> ;
+        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
+        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
+
+    <#[[instruction-step-11][%uuid%]]>
+        a schema:HowToStep ;
+        schema:position 11 ;
+        schema:text "Finally, boil the noodles, strain them well and finish assembling the ramen bowl." .
+
+    <#[[instruction-step-11][%uuid%]]-metadata>
+        a crdt:Metadata ;
+        crdt:resource <#[[instruction-step-11][%uuid%]]> ;
+        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
+        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
+
+    <#[[instruction-step-12][%uuid%]]>
+        a schema:HowToStep ;
+        schema:position 12 ;
+        schema:text "Itadakimasu!" .
+
+    <#[[instruction-step-12][%uuid%]]-metadata>
+        a crdt:Metadata ;
+        crdt:resource <#[[instruction-step-12][%uuid%]]> ;
+        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
+        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
+}
