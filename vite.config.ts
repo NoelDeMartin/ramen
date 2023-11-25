@@ -8,7 +8,7 @@ import { resolve } from 'path';
 
 export default {
     plugins: [
-        Aerogel(),
+        Aerogel({ name: 'Ramen' }),
         Components({
             dts: false,
             resolvers: [AerogelResolver(), IconsResolver({ customCollections: ['app'] })],

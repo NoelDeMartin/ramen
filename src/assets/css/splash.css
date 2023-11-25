@@ -1,0 +1,29 @@
+#splash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background: rgb(254 252 232); /* bg-yellow-50 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    transition: opacity 600ms ease-in-out;
+}
+
+#splash svg {
+    width: 100px;
+    height: 100px;
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
