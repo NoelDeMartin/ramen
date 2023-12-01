@@ -12,6 +12,6 @@ bootstrapApplication(App, {
     plugins: [
         i18n({ messages: import.meta.glob('@/lang/*.yaml') }),
         soukai({ models: import.meta.glob('@/models/*', { eager: true }) }),
-        solid(),
+        solid({ autoReconnect: true }),
     ],
 });
