@@ -5,7 +5,7 @@
         :aria-label="$t('cookbook.seeRamen', { url: $cookbook.ramen?.url })"
         :title="$t('cookbook.seeRamen', { url: $cookbook.ramen?.url })"
     >
-        <i-twemoji-steaming-bowl class="h-20 w-20" />
+        <i-twemoji-steaming-bowl class="h-40 w-40" />
     </a>
-    <AGMarkdown class="text-xl" lang-key="cookbook.ramen" />
+    <AGMarkdown class="mt-8 text-center text-4xl font-light leading-snug" lang-key="cookbook.ramen" />
 </template>
