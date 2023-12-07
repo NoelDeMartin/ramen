@@ -6,9 +6,9 @@
         class="flex items-center space-x-2"
         @submit="$ui.loading($t('cookbook.creating'), $cookbook.create(form.url))"
     >
-        <AGButton submit>
+        <FormButton submit>
             {{ $t('cookbook.create') }}
-        </AGButton>
+        </FormButton>
         <span>{{ $t('cookbook.createSeparator') }}</span>
         <InlineSelect name="url" :options="options" />
     </AGForm>

@@ -25,7 +25,7 @@
                     <li
                         class="relative cursor-pointer select-none truncate py-2 pl-3 pr-9 text-left focus:outline-none"
                         :class="{
-                            'bg-green-600 text-white': active,
+                            'bg-emerald-600 text-white': active,
                             'text-gray-900': !active,
                             'font-medium': selected,
                         }"

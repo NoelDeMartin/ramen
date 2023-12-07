@@ -2,8 +2,9 @@ login:
     title: Log in with Solid
     url: Login url
     urlPlaceholder: Introduce your webId or identity provider
-    submit: Login
-    previous: You were logged in with [{url}]({url})
+    submit: Log in
+    previous: You were logged in as [{name}]({url}).
+    previousSeparator: or
     logout: Forget it
     reconnect: Log in again
     errorInfo: 'Error: {message}'

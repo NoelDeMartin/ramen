@@ -45,7 +45,7 @@ export class CookbookService extends Service {
     protected async boot(): Promise<void> {
         await Solid.booted;
 
-        Solid.loggedIn && (await this.loadModels());
+        Solid.isLoggedIn() && (await this.loadModels());
     }
 
     protected async loadModels(): Promise<void> {
