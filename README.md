@@ -14,12 +14,15 @@ This repository should be my golden standard for app interactions with Solid ser
 
 The application has been tested with the following implementations:
 
-| Solid Server                                                              | Status                      | Last tested on | Comments                                                                                                                                                       |
-| ------------------------------------------------------------------------- | --------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [NSS](https://github.com/solid/node-solid-server) 5.7.7                   | :thumbsup: Working          | 08/12/2024     |                                                                                                                                                                |
-| [CSS](https://github.com/CommunitySolidServer/CommunitySolidServer) 7.0.1 | :thumbsup: Working          | 08/12/2024     |                                                                                                                                                                |
-| [ESS](https://inrupt.com/products/enterprise-solid-server/)               | :thumbsup: Working          | 08/12/2024     |                                                                                                                                                                |
-| [TrinPod](https://trinpod.us/)                                            | :thumbsup: Working          | 18/06/2021     |                                                                                                                                                                |
-| [PHP Solid Server](https://github.com/pdsinterop/php-solid-server)        | :warning: Partially working | 28/12/2020     | The server requires multiple fixes to work properly, reported here: [pdsinterop/php-solid-server#42](https://github.com/pdsinterop/php-solid-server/issues/42) |
+<!-- prettier-ignore-start -->
+| Solid Server                                                              | Status                      | Last tested on | Comments |
+| ------------------------------------------------------------------------- | --------------------------- | -------------- | -------- |
+| [NSS](https://github.com/solid/node-solid-server) 5.7.7                   | :thumbsup: Working          | 08/12/2023     |          |
+| [CSS](https://github.com/CommunitySolidServer/CommunitySolidServer) 7.0.1 | :thumbsup: Working          | 08/12/2023     |          |
+| [ESS](https://inrupt.com/products/enterprise-solid-server/)               | :thumbsup: Working          | 08/12/2023     |          |
+| [use.id](https://use.id/)                                                 | :no_entry: Not working      | 08/12/2023     | The server doesn't expose any [writable profiles](https://solid.github.io/webid-profile/) (nor extended profiles), so the app fails trying to create a [type index](https://solid.github.io/type-indexes/). |
+| [TrinPod](https://trinpod.us/)                                            | :thumbsup: Working          | 18/06/2021     |          |
+| [PHP Solid Server](https://github.com/pdsinterop/php-solid-server)        | :warning: Partially working | 28/12/2020     | The server requires multiple fixes to work properly, reported here: [pdsinterop/php-solid-server#42](https://github.com/pdsinterop/php-solid-server/issues/42). |
+<!-- prettier-ignore-end -->
 
 Missing a server? [Let me know!](https://github.com/NoelDeMartin/ramen/issues/new)
