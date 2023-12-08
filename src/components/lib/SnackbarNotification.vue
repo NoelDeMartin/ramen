@@ -3,9 +3,16 @@
         :class="colorClasses"
         class="flex max-w-md rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
     >
-        <div class="p-2">
+        <div class="flex p-2">
             <span class="p-2">
-                <AGMarkdown :text="message" inline />
+                <AGMarkdown
+                    :text="message"
+                    inline
+                    :class="{
+                        'text-red-800': color === 'danger',
+                        'text-gray-800': color === 'secondary',
+                    }"
+                />
             </span>
 
             <TextButton

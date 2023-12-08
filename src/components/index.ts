@@ -1,11 +1,11 @@
 import { UIComponents } from '@aerogel/core';
 
-import AlertModal from './overrides/AlertModal.vue';
-import ConfirmModal from './overrides/ConfirmModal.vue';
-import ErrorReportModal from './overrides/ErrorReportModal.vue';
-import LoadingModal from './overrides/LoadingModal.vue';
-import SnackbarNotification from './overrides/SnackbarNotification.vue';
-import StartupCrash from './overrides/StartupCrash.vue';
+import AlertModal from './modals/AlertModal.vue';
+import ConfirmModal from './modals/ConfirmModal.vue';
+import ErrorReportModal from './modals/ErrorReportModal.vue';
+import LoadingModal from './modals/LoadingModal.vue';
+import SnackbarNotification from './lib/SnackbarNotification.vue';
+import StartupCrash from './lib/StartupCrash.vue';
 
 export const components = {
     [UIComponents.AlertModal]: AlertModal,
