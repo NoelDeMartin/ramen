@@ -1,13 +1,12 @@
 <template>
-    <AGModal>
-        <AGModalTitle>
-            {{ $t('loginError.title') }}
-        </AGModalTitle>
+    <ModalWrapper :title="$t('loginError.title')">
         <AGMarkdown lang-key="loginError.description" />
-        <AGButton v-if="error" class="mt-2" @click="$errors.inspect(error)">
-            {{ $t('loginError.inspect') }}
-        </AGButton>
-    </AGModal>
+        <div v-if="error" class="mt-2 flex justify-center">
+            <TextButton color="danger" @click="$errors.inspect(error)">
+                {{ $t('loginError.inspect') }}
+            </TextButton>
+        </div>
+    </ModalWrapper>
 </template>
 
 <script setup lang="ts">

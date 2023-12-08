@@ -35,7 +35,7 @@ describe('Auth', () => {
         cy.cssLogin();
 
         // Act
-        cy.ariaLabel('Logout').click();
+        cy.ariaLabel('Log out').click();
         cy.contains('[role="dialog"]', 'Are you sure you want to log out?').within(() => {
             cy.press('Ok');
         });

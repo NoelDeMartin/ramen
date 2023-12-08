@@ -43,13 +43,18 @@
                         }: IAGErrorReportModalButtonsDefaultSlotProps"
                     >
                         <TextButton
+                            color="clear"
+                            class="group whitespace-nowrap"
                             :url="url"
-                            color="secondary"
-                            class="flex items-center gap-1"
+                            :aria-label="description"
                             @click="handler"
                         >
-                            <component :is="iconComponent" />
-                            {{ description }}
+                            <component :is="iconComponent" class="h-4 w-4" />
+                            <AGMeasured
+                                class="block w-0 overflow-hidden transition-[width] group-hover:w-[--width] group-focus:w-[--width]"
+                            >
+                                {{ description }}
+                            </AGMeasured>
                         </TextButton>
                     </template>
                 </AGErrorReportModalButtons>

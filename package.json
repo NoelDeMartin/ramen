@@ -2,6 +2,7 @@
     "name": "ramen",
     "version": "0.0.0",
     "private": true,
+    "repository": "github:noeldemartin/ramen",
     "scripts": {
         "build": "vite build",
         "cy:dev": "concurrently --kill-others \"npm run test:serve-app\" \"npm run test:serve-pod\" \"npm run cy:open\"",

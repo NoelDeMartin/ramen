@@ -5,6 +5,7 @@ import ConfirmModal from './overrides/ConfirmModal.vue';
 import ErrorReportModal from './overrides/ErrorReportModal.vue';
 import LoadingModal from './overrides/LoadingModal.vue';
 import SnackbarNotification from './overrides/SnackbarNotification.vue';
+import StartupCrash from './overrides/StartupCrash.vue';
 
 export const components = {
     [UIComponents.AlertModal]: AlertModal,
@@ -12,4 +13,5 @@ export const components = {
     [UIComponents.ErrorReportModal]: ErrorReportModal,
     [UIComponents.LoadingModal]: LoadingModal,
     [UIComponents.Snackbar]: SnackbarNotification,
+    [UIComponents.StartupCrash]: StartupCrash,
 };

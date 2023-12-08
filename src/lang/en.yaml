@@ -8,9 +8,9 @@ login:
     logout: Forget it
     reconnect: Log in again
     errorInfo: 'Error: {message}'
-    errorReconnect: Reconnect
-    errorLogout: Logout
-    errorInspect: Inspect
+    errorReconnect: Try again
+    errorLogout: Log out
+    errorInspect: View error details
 
 cookbook:
     create: Create cookbook
@@ -28,7 +28,7 @@ cookbook:
 header:
     account: Your Web Id is {webId}
     cookbook: Your recipes are stored in {url}
-    logout: Logout
+    logout: Log out
 
 footer:
     help: What is this?
@@ -36,4 +36,15 @@ footer:
 loginError:
     title: Login failed
     description: Something went wrong and it was not possible to log in.
-    inspect: View details
+    inspect: View error details
+
+startupCrash:
+    title: Something went wrong!
+    message: |
+        Something failed trying to start the application, but we don't know what :(.
+
+        Here's some things you can do:
+    reload: Try again
+    reloadWithoutReconnect: Try without reconnecting
+    logout: Log out
+    inspect: View error details

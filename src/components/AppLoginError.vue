@@ -1,20 +1,20 @@
 <template>
-    <div v-if="errorMessage" class="flex flex-col items-center">
+    <div v-if="errorMessage" class="flex flex-col items-center gap-4 p-8">
+        <i-twemoji-face-screaming-in-fear class="h-20 w-20" />
         <AGMarkdown
             as="h1"
             inline
             class="overflow-hidden overflow-ellipsis text-center text-3xl text-red-600"
             :text="errorMessage"
         />
-
-        <div class="mt-4 flex gap-3">
-            <TextButton @click="$solid.reconnect({ force: true })">
+        <div class="flex flex-col gap-3">
+            <TextButton color="danger" @click="$ui.loading($solid.reconnect({ force: true }))">
                 {{ $t('login.errorReconnect') }}
             </TextButton>
-            <TextButton @click="$solid.logout(true)">
+            <TextButton color="danger" @click="$ui.loading($solid.logout(true).then(() => $app.reload()))">
                 {{ $t('login.errorLogout') }}
             </TextButton>
-            <TextButton @click="$errors.inspect($solid.error)">
+            <TextButton color="danger" @click="$errors.inspect($solid.error)">
                 {{ $t('login.errorInspect') }}
             </TextButton>
         </div>

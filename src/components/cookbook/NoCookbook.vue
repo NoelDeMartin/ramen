@@ -1,9 +1,9 @@
 <template>
     <i-twemoji-cook class="h-20 w-20" />
-    <AGMarkdown lang-key="cookbook.notFound" class="text-3xl font-light" />
+    <AGMarkdown lang-key="cookbook.notFound" class="text-center text-3xl font-light leading-snug" />
     <AGForm
         :form="form"
-        class="flex items-center space-x-2"
+        class="mt-6 flex flex-col items-center gap-2 md:mt-0 md:flex-row"
         @submit="$ui.loading($t('cookbook.creating'), $cookbook.create(form.url))"
     >
         <TextButton submit>
