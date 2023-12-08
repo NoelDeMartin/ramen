@@ -2,7 +2,7 @@
     <Story :layout="{ type: 'grid' }">
         <Variant title="Playground">
             <AGForm :form="form">
-                <FormInput name="food" :label="label" :placeholder="placeholder" />
+                <TextInput name="food" :label="label" :placeholder="placeholder" />
             </AGForm>
 
             <template #controls>
@@ -13,20 +13,20 @@
         </Variant>
 
         <Variant title="Default">
-            <FormInput label="What's the best food?" placeholder="Ramen" />
+            <TextInput label="What's the best food?" placeholder="Ramen" />
         </Variant>
 
         <Variant title="Hover">
-            <FormInput label="What's the best food?" placeholder="Ramen" input-class=":hover" />
+            <TextInput label="What's the best food?" placeholder="Ramen" input-class=":hover" />
         </Variant>
 
         <Variant title="Focus">
-            <FormInput label="What's the best food?" placeholder="Ramen" input-class=":focus :focus-visible" />
+            <TextInput label="What's the best food?" placeholder="Ramen" input-class=":focus :focus-visible" />
         </Variant>
 
         <Variant title="Error">
             <AGForm :form="errorForm">
-                <FormInput
+                <TextInput
                     name="food"
                     label="What's the best food?"
                     placeholder="Ramen"
@@ -53,11 +53,11 @@ watchEffect(() => (hasErrors.value ? form.submit() : form.reset()));
 </script>
 
 <style>
-.story-forminput {
+.story-textinput {
     grid-template-columns: repeat(2, 300px) !important;
 }
 
-.story-forminput .variant-playground {
+.story-textinput .variant-playground {
     grid-column: 1 / -1;
 }
 </style>

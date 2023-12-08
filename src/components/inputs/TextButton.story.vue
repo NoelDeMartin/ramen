@@ -1,9 +1,9 @@
 <template>
     <Story :layout="{ type: 'grid' }">
         <Variant title="Playground">
-            <FormButton :color="color">
+            <TextButton :color="color">
                 {{ content }}
-            </FormButton>
+            </TextButton>
 
             <template #controls>
                 <HstText v-model="content" title="Content" />
@@ -12,38 +12,38 @@
         </Variant>
 
         <Variant title="Default">
-            <FormButton> Click me! </FormButton>
+            <TextButton> Click me! </TextButton>
         </Variant>
 
         <Variant title="Hover">
-            <FormButton class=":hover">
+            <TextButton class=":hover">
                 Click me!
-            </FormButton>
+            </TextButton>
         </Variant>
 
         <Variant title="Focus">
-            <FormButton class=":focus :focus-visible">
+            <TextButton class=":focus :focus-visible">
                 Click me!
-            </FormButton>
+            </TextButton>
         </Variant>
 
         <Variant title="Colors" :layout="{ width: '300px' }">
             <div class="flex items-center gap-2">
-                <FormButton color="primary">
+                <TextButton color="primary">
                     Primary
-                </FormButton>
-                <FormButton color="secondary">
+                </TextButton>
+                <TextButton color="secondary">
                     Secondary
-                </FormButton>
-                <FormButton color="solid">
+                </TextButton>
+                <TextButton color="solid">
                     Solid
-                </FormButton>
-                <FormButton color="danger">
+                </TextButton>
+                <TextButton color="danger">
                     Danger
-                </FormButton>
-                <FormButton color="clear">
+                </TextButton>
+                <TextButton color="clear">
                     Clear
-                </FormButton>
+                </TextButton>
             </div>
         </Variant>
     </Story>
@@ -62,12 +62,12 @@ const colorOptions = invert(Colors);
 </script>
 
 <style>
-.story-formbutton {
+.story-textbutton {
     grid-template-columns: repeat(3, 200px) !important;
 }
 
-.story-formbutton .variant-playground,
-.story-formbutton .variant-colors {
+.story-textbutton .variant-playground,
+.story-textbutton .variant-colors {
     grid-column: 1 / -1;
 }
 </style>

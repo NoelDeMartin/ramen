@@ -16,12 +16,12 @@
                     class="text-sm opacity-90"
                 />
                 <div class="flex flex-row-reverse justify-start">
-                    <FormButton color="secondary" @click="$ui.loading($solid.reconnect({ onError, force: true }))">
+                    <TextButton color="secondary" @click="$ui.loading($solid.reconnect({ onError, force: true }))">
                         {{ $t('login.reconnect') }}
-                    </FormButton>
-                    <FormButton class="mr-3" color="clear" @click="$solid.logout(true)">
+                    </TextButton>
+                    <TextButton class="mr-3" color="clear" @click="$solid.logout(true)">
                         {{ $t('login.logout') }}
-                    </FormButton>
+                    </TextButton>
                 </div>
             </div>
             <div class="flex items-center space-x-4">
@@ -31,10 +31,10 @@
             </div>
         </template>
         <AGForm :form="form" class="flex flex-col" @submit="$ui.loading($solid.login(form.loginUrl, { onError }))">
-            <FormInput name="loginUrl" :aria-label="$t('login.url')" :placeholder="$t('login.urlPlaceholder')" />
-            <FormButton color="solid" submit class="mt-2">
+            <TextInput name="loginUrl" :aria-label="$t('login.url')" :placeholder="$t('login.urlPlaceholder')" />
+            <TextButton color="solid" submit class="mt-2">
                 {{ $t('login.submit') }}
-            </FormButton>
+            </TextButton>
         </AGForm>
     </div>
 </template>

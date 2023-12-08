@@ -8,15 +8,15 @@
         />
 
         <div class="mt-4 flex gap-3">
-            <AGButton @click="$solid.reconnect({ force: true })">
+            <TextButton @click="$solid.reconnect({ force: true })">
                 {{ $t('login.errorReconnect') }}
-            </AGButton>
-            <AGButton @click="$solid.logout(true)">
+            </TextButton>
+            <TextButton @click="$solid.logout(true)">
                 {{ $t('login.errorLogout') }}
-            </AGButton>
-            <AGButton @click="$errors.inspect($solid.error)">
+            </TextButton>
+            <TextButton @click="$errors.inspect($solid.error)">
                 {{ $t('login.errorInspect') }}
-            </AGButton>
+            </TextButton>
         </div>
     </div>
 </template>
