@@ -1,13 +1,15 @@
 import i18n from '@aerogel/plugin-i18n';
 import solid from '@aerogel/plugin-solid';
 import soukai from '@aerogel/plugin-soukai';
-import { bootstrapApplication } from '@aerogel/core';
+import { bootstrap } from '@aerogel/core';
 
 import './assets/css/styles.css';
 import App from './App.vue';
+import { components } from './components';
 import { services } from './services';
 
-bootstrapApplication(App, {
+bootstrap(App, {
+    components,
     services,
     plugins: [
         i18n({ messages: import.meta.glob('@/lang/*.yaml') }),

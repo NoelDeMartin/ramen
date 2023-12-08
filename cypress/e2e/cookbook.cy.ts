@@ -18,6 +18,7 @@ describe('Cookbook', () => {
 
         // Act
         cy.see('You don\'t have a place to store your recipes');
+        cy.matchImageSnapshot();
         cy.press('Create cookbook');
 
         // Assert
@@ -46,6 +47,7 @@ describe('Cookbook', () => {
 
         // Act
         cy.see('You don\'t know how to make Ramen');
+        cy.matchImageSnapshot();
         cy.press('Teach me');
 
         // Assert
@@ -88,6 +90,7 @@ describe('Cookbook', () => {
         // Assert
         cy.see('You know how to make Ramen!');
         cy.see(`Your Ramen recipe is at ${cssPodUrl('/cookbook/ramen#it')}`);
+        cy.matchImageSnapshot();
     });
 
 });

@@ -30,7 +30,7 @@
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/typography": "^0.5.9",
         "soukai": "next",
-        "soukai-solid": "0.5.2-next.b6340345e228903e404a02c1ed9be8fc95162e8f",
+        "soukai-solid": "next",
         "tailwindcss": "^3.3.2",
         "vue": "^3.3.0",
         "vue-i18n": "9.3.0-beta.19"
@@ -38,7 +38,7 @@
     "devDependencies": {
         "@aerogel/cli": "next",
         "@aerogel/cypress": "next",
-        "@aerogel/histoire": "0.0.0-next.980a397d575dcb5ff8c5a0bff769d09f938ea03c",
+        "@aerogel/histoire": "next",
         "@aerogel/vite": "next",
         "@iconify/json": "^2.2.134",
         "@noeldemartin/eslint-config-vue": "next",

@@ -27,6 +27,12 @@
             </TextButton>
         </Variant>
 
+        <Variant title="Disabled">
+            <TextButton disabled>
+                You can't click me
+            </TextButton>
+        </Variant>
+
         <Variant title="Colors" :layout="{ width: '300px' }">
             <div class="flex items-center gap-2">
                 <TextButton color="primary">
@@ -37,6 +43,9 @@
                 </TextButton>
                 <TextButton color="solid">
                     Solid
+                </TextButton>
+                <TextButton color="solid-secondary">
+                    Solid Secondary
                 </TextButton>
                 <TextButton color="danger">
                     Danger
@@ -63,7 +72,7 @@ const colorOptions = invert(Colors);
 
 <style>
 .story-textbutton {
-    grid-template-columns: repeat(3, 200px) !important;
+    grid-template-columns: repeat(2, 300px) !important;
 }
 
 .story-textbutton .variant-playground,

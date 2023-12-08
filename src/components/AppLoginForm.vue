@@ -16,7 +16,10 @@
                     class="text-sm opacity-90"
                 />
                 <div class="flex flex-row-reverse justify-start">
-                    <TextButton color="secondary" @click="$ui.loading($solid.reconnect({ onError, force: true }))">
+                    <TextButton
+                        color="solid-secondary"
+                        @click="$ui.loading($solid.reconnect({ onError, force: true }))"
+                    >
                         {{ $t('login.reconnect') }}
                     </TextButton>
                     <TextButton class="mr-3" color="clear" @click="$solid.logout(true)">
