@@ -2,7 +2,7 @@ import { bootSolidModels } from 'soukai-solid';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { InMemoryEngine, bootModels, setEngine } from 'soukai';
 
-import Recipe from './Recipe';
+import Recipe from '../Recipe';
 
 describe('Recipe model', () => {
 
