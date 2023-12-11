@@ -13,7 +13,7 @@ bootstrap(App, {
     services,
     plugins: [
         i18n({ messages: import.meta.glob('@/lang/*.yaml') }),
-        soukai({ models: import.meta.glob('@/models/*', { eager: true }) }),
+        soukai({ models: import.meta.glob(['@/models/*', '!**/*.test.ts'], { eager: true }) }),
         solid({ autoReconnect: true }),
     ],
 });
