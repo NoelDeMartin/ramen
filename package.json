@@ -15,7 +15,7 @@
         "dev": "vite",
         "dev:serve-pod": "community-solid-server -c @css:config/file.json -f ./solid-data",
         "histoire": "histoire dev",
-        "lint": "noeldemartin-lint src",
+        "lint": "noeldemartin-lint src cypress",
         "postinstall": "patch-package",
         "test": "vitest --run",
         "test:ci": "vitest --run --reporter verbose",
@@ -32,7 +32,7 @@
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/typography": "^0.5.9",
         "soukai": "next",
-        "soukai-solid": "next",
+        "soukai-solid": "0.5.2-next.b6340345e228903e404a02c1ed9be8fc95162e8f",
         "tailwindcss": "^3.3.2",
         "vue": "^3.3.0",
         "vue-i18n": "9.3.0-beta.19"
