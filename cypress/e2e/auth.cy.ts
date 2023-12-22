@@ -1,4 +1,4 @@
-import { cssPodWebId, cssUrl } from '@aerogel/cypress';
+import { serverUrl, webId } from '@aerogel/cypress';
 
 describe('Auth', () => {
 
@@ -13,12 +13,12 @@ describe('Auth', () => {
         cy.matchImageSnapshot();
 
         // Act
-        cy.ariaInput('Login url').clear().type(`${cssUrl()}{enter}`);
-        cy.cssLogin();
+        cy.ariaInput('Login url').clear().type(`${serverUrl()}{enter}`);
+        cy.solidLogin();
 
         // Assert
         cy.see('Alice Cooper');
-        cy.see(`Your Web Id is ${cssPodWebId()}`, { srOnly: true });
+        cy.see(`Your Web Id is ${webId()}`, { srOnly: true });
     });
 
     it('Logs in with invalid url', () => {
@@ -31,8 +31,8 @@ describe('Auth', () => {
 
     it('Logs out', () => {
         // Arrange
-        cy.ariaInput('Login url').clear().type(`${cssUrl()}{enter}`);
-        cy.cssLogin();
+        cy.ariaInput('Login url').clear().type(`${serverUrl()}{enter}`);
+        cy.solidLogin();
 
         // Act
         cy.ariaLabel('Log out').click();

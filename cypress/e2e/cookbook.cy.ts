@@ -1,4 +1,4 @@
-import { cssPodUrl, cssUrl } from '@aerogel/cypress';
+import { podUrl, webId } from '@aerogel/cypress';
 
 describe('Cookbook', () => {
 
@@ -9,12 +9,12 @@ describe('Cookbook', () => {
 
     it('Creates containers', () => {
         // Arrange
-        cy.intercept('PUT', cssPodUrl('/cookbook/')).as('createCookbook');
-        cy.intercept('PUT', cssPodUrl('/settings/privateTypeIndex')).as('createTypeIndex');
-        cy.intercept('PATCH', cssPodUrl('/settings/privateTypeIndex')).as('registerCookbook');
+        cy.intercept('PUT', podUrl('/cookbook/')).as('createCookbook');
+        cy.intercept('PUT', podUrl('/settings/privateTypeIndex')).as('createTypeIndex');
+        cy.intercept('PATCH', podUrl('/settings/privateTypeIndex')).as('registerCookbook');
 
-        cy.ariaInput('Login url').clear().type(`${cssUrl()}{enter}`);
-        cy.cssLogin();
+        cy.ariaInput('Login url').clear().type(`${webId()}{enter}`);
+        cy.solidLogin();
 
         // Act
         cy.see('You don\'t have a place to store your recipes');
@@ -23,7 +23,7 @@ describe('Cookbook', () => {
 
         // Assert
         cy.see('Creating cookbook...');
-        cy.see(`Your recipes are stored in ${cssPodUrl('/cookbook/')}`, { srOnly: true });
+        cy.see(`Your recipes are stored in ${podUrl('/cookbook/')}`, { srOnly: true });
 
         cy.get('@createCookbook').its('response.statusCode').should('eq', 201);
         cy.get('@createTypeIndex').its('response.statusCode').should('eq', 201);
@@ -35,15 +35,15 @@ describe('Cookbook', () => {
 
     it('Teaches Ramen', () => {
         // Arrange
-        cy.intercept('PATCH', cssPodUrl('/cookbook/juns-ramen')).as('learnRamen');
+        cy.intercept('PATCH', podUrl('/cookbook/juns-ramen')).as('learnRamen');
 
-        cy.createSolidDocument('/settings/privateTypeIndex', 'privateTypeIndex.ttl');
-        cy.updateSolidDocument('/settings/privateTypeIndex', 'register-cookbook.sparql', { cookbookId: '#cookbook' });
-        cy.updateSolidDocument('/profile/card', 'register-type-index.sparql');
-        cy.createSolidContainer('/cookbook/', 'Cookbook');
+        cy.solidCreateDocument('/settings/privateTypeIndex', 'privateTypeIndex.ttl');
+        cy.solidUpdateDocument('/settings/privateTypeIndex', 'register-cookbook.sparql', { cookbookId: '#cookbook' });
+        cy.solidUpdateDocument('/profile/card', 'register-type-index.sparql');
+        cy.solidCreateContainer('/cookbook/', 'Cookbook');
 
-        cy.ariaInput('Login url').clear().type(`${cssUrl()}{enter}`);
-        cy.cssLogin();
+        cy.ariaInput('Login url').clear().type(`${webId()}{enter}`);
+        cy.solidLogin();
 
         // Act
         cy.see('You don\'t know how to make Ramen');
@@ -52,7 +52,7 @@ describe('Cookbook', () => {
 
         // Assert
         cy.see('You know how to make Ramen!');
-        cy.see(`Your Ramen recipe is at ${cssPodUrl('/cookbook/juns-ramen#it')}`);
+        cy.see(`Your Ramen recipe is at ${podUrl('/cookbook/juns-ramen#it')}`);
 
         cy.get('@learnRamen').its('response.statusCode').should('eq', 201);
         cy.fixture('learn-ramen.sparql').then((sparql) => {
@@ -62,34 +62,34 @@ describe('Cookbook', () => {
 
     it('Finds an existing container', () => {
         // Arrange
-        cy.createSolidDocument('/settings/privateTypeIndex', 'privateTypeIndex.ttl');
-        cy.updateSolidDocument('/settings/privateTypeIndex', 'register-cookbook.sparql', { cookbookId: '#cookbook' });
-        cy.updateSolidDocument('/profile/card', 'register-type-index.sparql');
-        cy.createSolidContainer('/cookbook/', 'Cookbook');
+        cy.solidCreateDocument('/settings/privateTypeIndex', 'privateTypeIndex.ttl');
+        cy.solidUpdateDocument('/settings/privateTypeIndex', 'register-cookbook.sparql', { cookbookId: '#cookbook' });
+        cy.solidUpdateDocument('/profile/card', 'register-type-index.sparql');
+        cy.solidCreateContainer('/cookbook/', 'Cookbook');
 
         // Act
-        cy.ariaInput('Login url').clear().type(`${cssUrl()}{enter}`);
-        cy.cssLogin();
+        cy.ariaInput('Login url').clear().type(`${webId()}{enter}`);
+        cy.solidLogin();
 
         // Assert
-        cy.see(`Your recipes are stored in ${cssPodUrl('/cookbook/')}`, { srOnly: true });
+        cy.see(`Your recipes are stored in ${podUrl('/cookbook/')}`, { srOnly: true });
     });
 
     it('Finds existing Ramen', () => {
         // Arrange
-        cy.createSolidDocument('/settings/privateTypeIndex', 'privateTypeIndex.ttl');
-        cy.updateSolidDocument('/settings/privateTypeIndex', 'register-cookbook.sparql', { cookbookId: '#cookbook' });
-        cy.updateSolidDocument('/profile/card', 'register-type-index.sparql');
-        cy.createSolidContainer('/cookbook/', 'Cookbook');
-        cy.createSolidDocument('/cookbook/ramen', 'ramen.ttl');
+        cy.solidCreateDocument('/settings/privateTypeIndex', 'privateTypeIndex.ttl');
+        cy.solidUpdateDocument('/settings/privateTypeIndex', 'register-cookbook.sparql', { cookbookId: '#cookbook' });
+        cy.solidUpdateDocument('/profile/card', 'register-type-index.sparql');
+        cy.solidCreateContainer('/cookbook/', 'Cookbook');
+        cy.solidCreateDocument('/cookbook/ramen', 'ramen.ttl');
 
         // Act
-        cy.ariaInput('Login url').clear().type(`${cssUrl()}{enter}`);
-        cy.cssLogin();
+        cy.ariaInput('Login url').clear().type(`${webId()}{enter}`);
+        cy.solidLogin();
 
         // Assert
         cy.see('You know how to make Ramen!');
-        cy.see(`Your Ramen recipe is at ${cssPodUrl('/cookbook/ramen#it')}`);
+        cy.see(`Your Ramen recipe is at ${podUrl('/cookbook/ramen#it')}`);
         cy.matchImageSnapshot();
     });
 
