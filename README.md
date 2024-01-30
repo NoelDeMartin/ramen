@@ -17,7 +17,7 @@ The application has been tested with the following implementations:
 <!-- prettier-ignore-start -->
 | Solid Server                                                              | Status                      | Last tested | Comments |
 | ------------------------------------------------------------------------- | --------------------------- | ----------- | -------- |
-| [TrinPod](https://trinpod.eu/)                                            | :no_entry: Not working      | 20/12/2023  | The issues have been reported and the TrinPod team is aware, you can find the details in the Matrix chat: [#graphmetrix_trinpod:gitter.im](https://matrix.to/#/!gTNxLnGLGaGPYnxTCn:gitter.im/$p9Lxkk2kswFjoQBsj0l8ioAeXaLqbGGvOwGneyC11wU) |
+| [TrinPod](https://trinpod.eu/)                                            | :thumbsup: Working          | 30/01/2024  |          |
 | [NSS](https://github.com/solid/node-solid-server) 5.7.7                   | :thumbsup: Working          | 08/12/2023  |          |
 | [CSS](https://github.com/CommunitySolidServer/CommunitySolidServer) 7.0.1 | :thumbsup: Working          | 08/12/2023  |          |
 | [ESS](https://inrupt.com/products/enterprise-solid-server/)               | :thumbsup: Working          | 08/12/2023  |          |
