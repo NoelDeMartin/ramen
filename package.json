@@ -23,16 +23,16 @@
         "test:serve-pod": "community-solid-server -l warn"
     },
     "dependencies": {
-        "@aerogel/core": "next",
-        "@aerogel/plugin-i18n": "next",
-        "@aerogel/plugin-solid": "next",
-        "@aerogel/plugin-soukai": "next",
+        "@aerogel/core": "0.0.0-next.b243de4e2590f02709edeebd8c13b74087592c04",
+        "@aerogel/plugin-i18n": "0.0.0-next.13b88f634a31caf3669d61e53e7d3fa95e20488c",
+        "@aerogel/plugin-solid": "0.0.1-next.bba0a15680b1b426603cd45efbfabced5852d433",
+        "@aerogel/plugin-soukai": "0.0.0-next.d91fa1b09d159896747a54add57983993ddb97c4",
         "@intlify/unplugin-vue-i18n": "^0.12.2",
-        "@noeldemartin/utils": "next",
+        "@noeldemartin/utils": "0.5.1-next.82707467527729a9fe7c2155959beb4b5ea30b81",
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/typography": "^0.5.9",
-        "soukai": "next",
-        "soukai-solid": "0.5.2-next.b6340345e228903e404a02c1ed9be8fc95162e8f",
+        "soukai": "0.5.2-next.376c89f9aaf5d42e43c169445d10fd87ec6aab2d",
+        "soukai-solid": "0.5.2-next.6fb8ad070edeb38e0d9dd14c5024af694a5fe340",
         "tailwindcss": "^3.3.2",
         "vue": "^3.3.0",
         "vue-i18n": "9.3.0-beta.19"

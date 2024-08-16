@@ -59,4 +59,4 @@ export class CookbookService extends Service {
 
 }
 
-export default facade(new CookbookService());
+export default facade(CookbookService);
