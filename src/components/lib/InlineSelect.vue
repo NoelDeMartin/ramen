@@ -19,7 +19,7 @@
                     v-for="(option, index) in $select?.options"
                     v-slot="{ active, selected }: IAGHeadlessSelectOptionSlotProps"
                     :key="index"
-                    :value="option.value"
+                    :value="option"
                     as="template"
                 >
                     <li
@@ -30,7 +30,7 @@
                             'font-medium': selected,
                         }"
                     >
-                        {{ option.text }}
+                        {{ option }}
                     </li>
                 </AGHeadlessSelectOption>
             </AGHeadlessSelectOptions>

@@ -25,14 +25,14 @@
 import { computed } from 'vue';
 
 import { Solid } from '@aerogel/plugin-solid';
-import { Errors, translate } from '@aerogel/core';
+import { getErrorMessage, translate } from '@aerogel/core';
 
 const errorMessage = computed(() => {
     if (!Solid.error) {
         return;
     }
 
-    const message = Errors.getErrorMessage(Solid.error);
+    const message = getErrorMessage(Solid.error);
 
     return translate('login.errorInfo', { message });
 });
