@@ -2,7 +2,7 @@ import { facade, tap } from '@noeldemartin/utils';
 import { Metadata, setExperimentalFlags, usingExperimentalActivityPods } from 'soukai-solid';
 import { Solid } from '@aerogel/plugin-solid';
 
-import junsRamen from '@/assets/json/juns-ramen.json';
+import ramenJson from '@/assets/json/ramen.json';
 import Recipe from '@/models/Recipe';
 import RecipeInstructionsStep from '@/models/RecipeInstructionsStep';
 import RecipesContainer from '@/models/RecipesContainer';
@@ -42,7 +42,7 @@ export class CookbookService extends Service {
             return;
         }
 
-        const { instructions, ...attributes } = junsRamen;
+        const { instructions, ...attributes } = ramenJson;
 
         this.ramen = await tap(new Recipe(attributes), async (ramen) => {
             instructions.forEach((text, index) => ramen.relatedInstructions.attach({ position: index + 1, text }));
@@ -94,7 +94,7 @@ export class CookbookService extends Service {
     }
 
     protected async learnRamenInActivityPods(): Promise<void> {
-        const { instructions, ...attributes } = junsRamen;
+        const { instructions, ...attributes } = ramenJson;
         const ramen = new Recipe(attributes);
 
         await Promise.all(

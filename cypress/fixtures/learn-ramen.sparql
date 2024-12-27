@@ -5,30 +5,42 @@ INSERT DATA {
 
     <#it>
         a schema:Recipe ;
-        schema:name "Jun's Ramen" ;
-        schema:description "Ramen can be done in many ways, and it's one of the most difficult recipes to master. But don't fret! If you follow [Jun](https://www.youtube.com/c/JunsKitchen)'s advice, this will be an excellent way to get started." ;
-        schema:prepTime "P1D" ;
+        schema:name "Ramen" ;
+        schema:description "There are 5 essential components to make a Ramen bowl:\n\n- Tare\n- Aroma Oil\n- Broth\n- Noodles\n- Toppings\n\nExcept for the noodles and some toppings, you can prepare most of these days before. The instructions below will tell you how to make a basic Miso Ramen, but there are endless variations you can do. The most important points to keep in mind are to include the 5 components, to make a balanced combination, and to include plenty of [Umami](https://www.umamiinfo.com/umamidb/)!" ;
+        schema:prepTime "∞" ;
         schema:cookTime "PT30M" ;
-        schema:recipeYield "3 persons" ;
-        schema:sameAs <https://www.youtube.com/watch?v=9WXIrnWsaCo> ;
-        schema:image <https://i.ytimg.com/vi/9WXIrnWsaCo/hqdefault.jpg> ;
+        schema:recipeYield "2 bowls" ;
+        schema:sameAs
+            <https://noeldemartin.solidcommunity.net/cookbook/ramen#it>,
+            <https://www.youtube.com/playlist?list=PLURsDaOr8hWVIL1uXpFewd0smwYfyO0A9>,
+            <https://www.youtube.com/playlist?list=PLURsDaOr8hWXGHjXPa3nTFZnbqJcAfs4N>,
+            <https://www.youtube.com/watch?v=9WXIrnWsaCo>,
+            <https://www.youtube.com/watch?v=eDSwdEDKYds> ;
+        schema:image <https://noeldemartin.solidcommunity.net/cookbook/ramen.png> ;
         schema:recipeIngredient
-            "500g Boston Butt Pork",
-            "200ml Soy Sauce",
-            "150ml Sake",
+            "700ml Dashi",
+            "500ml Vegetable Broth",
+            "240g Wheat Noodles",
+            "200g Shiitake",
+            "150ml Soy Sauce",
             "100ml Mirin",
-            "50ml Bonito Stock Soup (optional)",
-            "3-5 Chicken Wings",
-            "3-5 slices of Ginger",
-            "30g Japanese Anchovy",
-            "15g Bonito Flakes",
-            "15g Kelp",
-            "2 Dried Shiitake Mushrooms",
+            "100ml Sake",
+            "50g Bamboo Shoots",
+            "50g Miso Paste",
+            "12g Sugar",
+            "5g Salt",
+            "8 Garlic Cloves",
+            "6 Green Onions or 1 Leek",
+            "2 Boneless Chicken Thighs",
             "2 Eggs",
-            "1 Chicken Bone",
-            "1 clove of Garlic",
-            "1 Green Onion",
-            "Any types of clams you want" ;
+            "2 Nori Seaweeds",
+            "1 Carrot",
+            "1 Celery",
+            "1 Onion",
+            "Olive Oil",
+            "Sunflower Oil",
+            "Chilli Powder (optional)",
+            "Honey (optional)" ;
         schema:recipeInstructions
             <#[[instruction-step-1][%uuid%]]>,
             <#[[instruction-step-2][%uuid%]]>,
@@ -39,9 +51,7 @@ INSERT DATA {
             <#[[instruction-step-7][%uuid%]]>,
             <#[[instruction-step-8][%uuid%]]>,
             <#[[instruction-step-9][%uuid%]]>,
-            <#[[instruction-step-10][%uuid%]]>,
-            <#[[instruction-step-11][%uuid%]]>,
-            <#[[instruction-step-12][%uuid%]]>.
+            <#[[instruction-step-10][%uuid%]]>.
 
     <#it-metadata>
         a crdt:Metadata ;
@@ -52,7 +62,7 @@ INSERT DATA {
     <#[[instruction-step-1][%uuid%]]>
         a schema:HowToStep ;
         schema:position 1 ;
-        schema:text "Start with the pork. Rub in salt to season. Then, slowly sear the outside." .
+        schema:text "First of all, you should make a savoury Sauce that you'll use in different ingredients. Mix the mirin, sake, soy sauce, sugar and salt. Heat in a pot, and stop it just before it starts boiling." .
 
     <#[[instruction-step-1][%uuid%]]-metadata>
         a crdt:Metadata ;
@@ -63,7 +73,7 @@ INSERT DATA {
     <#[[instruction-step-2][%uuid%]]>
         a schema:HowToStep ;
         schema:position 2 ;
-        schema:text "Next, make the sauce for the pork and boiled eggs. Get the green part of the green onion, a few slices of ginger and crush the garlic. Add sake, mirin, soy sauce, sugar and salt in a pot and heat it up on low heat. Turn off the burner before it boils." .
+        schema:text "To make the Aroma Oil, add minced Green Onions or Leek in Sunflower Oil until it gets brown (almost burned). Filter, and store in a dry dark place." .
 
     <#[[instruction-step-2][%uuid%]]-metadata>
         a crdt:Metadata ;
@@ -74,7 +84,7 @@ INSERT DATA {
     <#[[instruction-step-3][%uuid%]]>
         a schema:HowToStep ;
         schema:position 3 ;
-        schema:text "Now wrap the pork with a paper towel and put everything in a zip up bag. Then get rid of the air inside the bag, using a bowl of water makes this process easy. Then place it inside the rice cooker and add boiled water. Press the \"keep warm\" button, and it'll be done cooking in about 3-4 hours. Then keep it in a fridge for half a day." .
+        schema:text "To make the Tare, start by frying some vegetables (Onion, Carrot, Celery, Garlic) until browned. Afterwards, add some of the savoury sauce to deglaze. At this point, you can blend the ingredients for a finer base. If you want to make it spicy, add some chilli powder. Then, add 200ml of Dashi and the miso paste and boil until the miso has been dissolved completely." .
 
     <#[[instruction-step-3][%uuid%]]-metadata>
         a crdt:Metadata ;
@@ -85,7 +95,7 @@ INSERT DATA {
     <#[[instruction-step-4][%uuid%]]>
         a schema:HowToStep ;
         schema:position 4 ;
-        schema:text "Now make hard boiled eggs. Making a tiny hole at the bottom of the eggs prevents them from cracking. Boil the eggs for 6 minutes and a half. Take the eggs out and cool them down. When they're cooled down, get rid of the shells. Place eggs in tupperware, and add equal parts of water and sauce. Then, cover them with a paper towel and keep them in the fridge for half a day as well." .
+        schema:text "To prepare the eggs, boil them for exactly 6 minutes and retire to cold water with ice cubes. Once they've cooled off, peel them and store them in a container submerged in half the savoury sauce, half water. Store in the fridge at least overnight." .
 
     <#[[instruction-step-4][%uuid%]]-metadata>
         a crdt:Metadata ;
@@ -96,7 +106,7 @@ INSERT DATA {
     <#[[instruction-step-5][%uuid%]]>
         a schema:HowToStep ;
         schema:position 5 ;
-        schema:text "Now make the soup. Prepare the soup stock with the following combinations: kombu in soy sauce, kombu in water, mushrooms in water and anchovy katsuobushi in hot water. Next, add green onion, ginger slices, chicken bones and wings in boiled water, and boil them for a minute to get rid of the smell. Place them in cold water and chop the bones into chunks. Put the bones and chicken wings in a pot and cook it on very low heat for an hour." .
+        schema:text "Up until this point, everything could have been made the day before and stored. But from this point on, it's better to make them before serving. Before doing anything, start heating the broth which will be the body of the ramen. Mix 500ml of Dashi with 500ml of the vegetable broth. And leave the rest of the ingredients at room temperature (the boiled eggs, aroma oil, etc.)." .
 
     <#[[instruction-step-5][%uuid%]]-metadata>
         a crdt:Metadata ;
@@ -107,7 +117,7 @@ INSERT DATA {
     <#[[instruction-step-6][%uuid%]]>
         a schema:HowToStep ;
         schema:position 6 ;
-        schema:text "At the same time, make clam soup. Before cooking the clams, get rid of the sand by adding 3% salt water and wait for half a day. Boil the clams with sake and kombu for 30 minutes on low heat. Skim off scum while boiling." .
+        schema:text "Cook the chicken thighs on a pan, and when they're almost done, spread them with a mixture of the savoury sauce with honey and minced garlic. You can do the same with the bamboo shots and the shiitake, although you'll probably want to add a lot less quantity of the sauce." .
 
     <#[[instruction-step-6][%uuid%]]-metadata>
         a crdt:Metadata ;
@@ -118,7 +128,7 @@ INSERT DATA {
     <#[[instruction-step-7][%uuid%]]>
         a schema:HowToStep ;
         schema:position 7 ;
-        schema:text "Cut off the skin of chicken and fry it on low heat until it becomes crispy. Save the chicken oil for the soup and the chicken skin for a topping later." .
+        schema:text "Ideally, you'd have cooked the garlic in the oven with some other recipe. But if that didn't happen, you can cook the garlic cloves in the microwave by adding S&P, oil, and water in a covered container and cooked for about 5 minutes at medium power." .
 
     <#[[instruction-step-7][%uuid%]]-metadata>
         a crdt:Metadata ;
@@ -129,7 +139,7 @@ INSERT DATA {
     <#[[instruction-step-8][%uuid%]]>
         a schema:HowToStep ;
         schema:position 8 ;
-        schema:text "Make another topping. Cut off the white part of the green onion, cut off the core, and slice it thinly. Soak it in water for 5 minutes." .
+        schema:text "Finally, before you start cooking the noodles, prepare all the ingredients in order to assemble the bowls quickly (cold Ramen is not Ramen!). Here's a summary of everything you need:\n\n- Hot Broth (dashi + vegetable broth)\n- Tare\n- Aroma Oil\n- Boiled Eggs\n- Chicken Thighs\n- Shiitake\n- Bamboo Shoots\n- Garlic Cloves\n- Nori\n- Minced Green Onions or Leek" .
 
     <#[[instruction-step-8][%uuid%]]-metadata>
         a crdt:Metadata ;
@@ -140,7 +150,7 @@ INSERT DATA {
     <#[[instruction-step-9][%uuid%]]>
         a schema:HowToStep ;
         schema:position 9 ;
-        schema:text "Now blend all the soup. The blend ratio is completely up to you. For example, if you want the soup to be a little more fishy, then add more bonito stock. One example ratio is 4 fish soup : 3 chicken soup : 1 clam soup : 1 kombu soup : 1 mushroom soup. When the soup is done, add soy sauce with kombu and chicken oil in the ramen bowl first." .
+        schema:text "Boil the Noodles, and assemble the bowl in the following order: Tare, Aroma Oil (don't go light!), Broth, Noodles, and Toppings." .
 
     <#[[instruction-step-9][%uuid%]]-metadata>
         a crdt:Metadata ;
@@ -151,33 +161,11 @@ INSERT DATA {
     <#[[instruction-step-10][%uuid%]]>
         a schema:HowToStep ;
         schema:position 10 ;
-        schema:text "Prepare the toppings. Scorch the pork slices. Cut an egg in half. Pour soup in the bowl." .
+        schema:text "いただきまーす!" .
 
     <#[[instruction-step-10][%uuid%]]-metadata>
         a crdt:Metadata ;
         crdt:resource <#[[instruction-step-10][%uuid%]]> ;
-        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
-        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
-
-    <#[[instruction-step-11][%uuid%]]>
-        a schema:HowToStep ;
-        schema:position 11 ;
-        schema:text "Finally, boil the noodles, strain them well and finish assembling the ramen bowl." .
-
-    <#[[instruction-step-11][%uuid%]]-metadata>
-        a crdt:Metadata ;
-        crdt:resource <#[[instruction-step-11][%uuid%]]> ;
-        crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
-        crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
-
-    <#[[instruction-step-12][%uuid%]]>
-        a schema:HowToStep ;
-        schema:position 12 ;
-        schema:text "Itadakimasu!" .
-
-    <#[[instruction-step-12][%uuid%]]-metadata>
-        a crdt:Metadata ;
-        crdt:resource <#[[instruction-step-12][%uuid%]]> ;
         crdt:createdAt "[[date][.*]]"^^xsd:dateTime ;
         crdt:updatedAt "[[date][.*]]"^^xsd:dateTime .
 }

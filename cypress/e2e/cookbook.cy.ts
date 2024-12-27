@@ -35,7 +35,7 @@ describe('Cookbook', () => {
 
     it('Teaches Ramen', () => {
         // Arrange
-        cy.intercept('PATCH', podUrl('/cookbook/juns-ramen')).as('learnRamen');
+        cy.intercept('PATCH', podUrl('/cookbook/ramen')).as('learnRamen');
 
         cy.solidCreateDocument('/settings/privateTypeIndex', 'privateTypeIndex.ttl');
         cy.solidUpdateDocument('/settings/privateTypeIndex', 'register-cookbook.sparql', { cookbookId: '#cookbook' });
@@ -52,7 +52,7 @@ describe('Cookbook', () => {
 
         // Assert
         cy.see('You know how to make Ramen!');
-        cy.see(`Your Ramen recipe is at ${podUrl('/cookbook/juns-ramen#it')}`);
+        cy.see(`Your Ramen recipe is at ${podUrl('/cookbook/ramen#it')}`);
 
         cy.get('@learnRamen').its('response.statusCode').should('eq', 201);
         cy.fixture('learn-ramen.sparql').then((sparql) => {

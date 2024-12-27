@@ -1,0 +1,52 @@
+{
+    "name": "Ramen",
+    "description": "There are 5 essential components to make a Ramen bowl:\n\n- Tare\n- Aroma Oil\n- Broth\n- Noodles\n- Toppings\n\nExcept for the noodles and some toppings, you can prepare most of these days before. The instructions below will tell you how to make a basic Miso Ramen, but there are endless variations you can do. The most important points to keep in mind are to include the 5 components, to make a balanced combination, and to include plenty of [Umami](https://www.umamiinfo.com/umamidb/)!",
+    "imageUrl": "https://noeldemartin.solidcommunity.net/cookbook/ramen.png",
+    "servings": "2 bowls",
+    "prepTime": "∞",
+    "cookTime": "PT30M",
+    "ingredients": [
+        "700ml Dashi",
+        "500ml Vegetable Broth",
+        "240g Wheat Noodles",
+        "200g Shiitake",
+        "150ml Soy Sauce",
+        "100ml Mirin",
+        "100ml Sake",
+        "50g Bamboo Shoots",
+        "50g Miso Paste",
+        "12g Sugar",
+        "5g Salt",
+        "8 Garlic Cloves",
+        "6 Green Onions or 1 Leek",
+        "2 Boneless Chicken Thighs",
+        "2 Eggs",
+        "2 Nori Seaweeds",
+        "1 Carrot",
+        "1 Celery",
+        "1 Onion",
+        "Olive Oil",
+        "Sunflower Oil",
+        "Chilli Powder (optional)",
+        "Honey (optional)"
+    ],
+    "instructions": [
+        "First of all, you should make a savoury Sauce that you'll use in different ingredients. Mix the mirin, sake, soy sauce, sugar and salt. Heat in a pot, and stop it just before it starts boiling.",
+        "To make the Aroma Oil, add minced Green Onions or Leek in Sunflower Oil until it gets brown (almost burned). Filter, and store in a dry dark place.",
+        "To make the Tare, start by frying some vegetables (Onion, Carrot, Celery, Garlic) until browned. Afterwards, add some of the savoury sauce to deglaze. At this point, you can blend the ingredients for a finer base. If you want to make it spicy, add some chilli powder. Then, add 200ml of Dashi and the miso paste and boil until the miso has been dissolved completely.",
+        "To prepare the eggs, boil them for exactly 6 minutes and retire to cold water with ice cubes. Once they've cooled off, peel them and store them in a container submerged in half the savoury sauce, half water. Store in the fridge at least overnight.",
+        "Up until this point, everything could have been made the day before and stored. But from this point on, it's better to make them before serving. Before doing anything, start heating the broth which will be the body of the ramen. Mix 500ml of Dashi with 500ml of the vegetable broth. And leave the rest of the ingredients at room temperature (the boiled eggs, aroma oil, etc.).",
+        "Cook the chicken thighs on a pan, and when they're almost done, spread them with a mixture of the savoury sauce with honey and minced garlic. You can do the same with the bamboo shots and the shiitake, although you'll probably want to add a lot less quantity of the sauce.",
+        "Ideally, you'd have cooked the garlic in the oven with some other recipe. But if that didn't happen, you can cook the garlic cloves in the microwave by adding S&P, oil, and water in a covered container and cooked for about 5 minutes at medium power.",
+        "Finally, before you start cooking the noodles, prepare all the ingredients in order to assemble the bowls quickly (cold Ramen is not Ramen!). Here's a summary of everything you need:\n\n- Hot Broth (dashi + vegetable broth)\n- Tare\n- Aroma Oil\n- Boiled Eggs\n- Chicken Thighs\n- Shiitake\n- Bamboo Shoots\n- Garlic Cloves\n- Nori\n- Minced Green Onions or Leek",
+        "Boil the Noodles, and assemble the bowl in the following order: Tare, Aroma Oil (don't go light!), Broth, Noodles, and Toppings.",
+        "いただきまーす!"
+    ],
+    "externalUrls": [
+        "https://noeldemartin.solidcommunity.net/cookbook/ramen#it",
+        "https://www.youtube.com/playlist?list=PLURsDaOr8hWVIL1uXpFewd0smwYfyO0A9",
+        "https://www.youtube.com/playlist?list=PLURsDaOr8hWXGHjXPa3nTFZnbqJcAfs4N",
+        "https://www.youtube.com/watch?v=9WXIrnWsaCo",
+        "https://www.youtube.com/watch?v=eDSwdEDKYds"
+    ]
+}
