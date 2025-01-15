@@ -1,11 +1,8 @@
 # ActivityPods Compatibility Report
 
-> [!WARNING]
-> This report still needs to be reviewed by the ActivityPods team, who've been very helpful in solving my doubts so far. I'll reach out to them after the holiday season 🎄.
-
 This report outlines the challenges I've faced adapting my [Ramen](https://ramen.noeldemartin.com) app to work with [ActivityPods](https://activitypods.org/). Ideally, it should work without changing any code; that's the point of Solid being a protocol. But they are still working on making ActivityPods fully spec-compliant, and I wanted to see how far it was.
 
-This document only talks about my specific challenges adapting this app, you can read the official compatibility report in their website: [ActivityPods: Solid compliance](https://activitypods.org/specs/solid).
+This document only talks about my specific challenges adapting this app. You can read the official compatibility report in their website at [ActivityPods: Solid compliance](https://activitypods.org/specs/solid), and what they plan to do in the future in [ActivityPods 3.0 Milestones](https://pad.lescommuns.org/GDwoZyzJSkGPnvaOlJrSqA#).
 
 ## Current status
 
@@ -19,7 +16,7 @@ All in all, if you just want to see the code, these are all the changes I had to
 
 ## Additional requirements
 
-Besides the [limitations](#limitations) in their current implementation, I've also noticed some additional requirements that I haven't encountered in any other Solid Server so far. Some of these are likely to change as they become fully spec-compliant, but others may be requirements going forward.
+Besides the [limitations](#limitations) in their current implementation, I've also noticed some additional requirements that I haven't encountered in any other Solid Server so far. Some of these are likely to change as they become fully spec-compliant.
 
 -   **Using [SAI](https://solid.github.io/data-interoperability-panel/specification/).** In the current implementation, SAI is the only way to log in with a Solid App. This is likely to change, as described in this issue: https://github.com/activitypods/activitypods/issues/344.
 
@@ -27,9 +24,7 @@ Besides the [limitations](#limitations) in their current implementation, I've al
 
 -   **Server-side computation.** Similar to other Solid Servers, logging in to an ActivityPods Pod requires providing a [Client ID document](https://solid.github.io/solid-oidc/#clientids-document). However, in contrast with other servers, [they expect this document to perform content negotiation using a `JsonLdContext` header](https://activitypods.org/specs/activitypods#jsonldcontext-header).
 
-    This is not too difficult to implement, but it raises the concern of expecting Solid Apps to have a server-side component. So far, all my applications have worked entirely in the frontend, and that's been one of the biggest advantages of Solid (no need to manage servers, they can work in a local networks, etc.). Looking at their codebase, reading [their tutorials](https://docs.activitypods.org/tutorials/create-your-first-social-app/), and talking with them, it seems like this is a core assumption they are making. So I don't think this is likely to change in the near future.
-
-    The way I've solved it is implementing [a separate service](https://github.com/NoelDeMartin/rem/) to manage application identities. But I'm not sure how far this can be stretched in the future, and I've already seen some parts where it breaks down (the authorization UI is showing the service domain instead of the app's, etc.).
+    This is not too difficult to implement, but it raises the concern of expecting Solid Apps to have a server-side component. So far, all my applications have worked entirely in the frontend, and that's been one of the biggest advantages of Solid (no need to manage servers, they can work in a local networks, etc.). The way I've solved it is implementing [a separate service](https://github.com/NoelDeMartin/rem/) to manage application identities. But I'm not sure how far this can be stretched in the future, and I've already seen some parts where it breaks down (the authorization UI is showing the service domain instead of the app's, etc.).
 
 ## Limitations and unexpected behavior
 
@@ -39,13 +34,14 @@ Most of these are likely to be fixed in a future version when ActivityPods becom
 -   Container urls don't end with `/`.
 -   RDF documents can only contain triples for a single subject, which has to be the document's url. They cannot contain fragments such as `#it`.
 -   Document container urls don't match the document's. For example, using this app you'll notice the container for recipes is created at `/data/schema/recipe`, but contained recipes are created as `/data/{uuid}` (instead of `/data/schema/recipe/{uuid}` as I'd expect).
--   Creating documents with `text/turtle` doesn't work, I used `application/ld+json`.
+-   Creating documents with `text/turtle` doesn't work, I had to use `application/ld+json` instead.
 -   It's only possible to create containers for known vocabularies. During registration, the server validates the vocabularies against [prefix.cc](https://prefix.cc/). For example, in my app I was using `https://schema.org/Recipe`; but that didn't work since it expected `http://schema.org/Recipe` (starting with `http://` instead of `https://`). However, once the container has been created, you can store any resource inside (for example, I also create `http://schema.org/HowToStep` and `https://vocab.noeldemartin.com/crdt/Metadata` documents).
+-   Container responses include the triples from all the contained documents, not just `ldp:contains` and `dc:modified`. There is some ambiguity in the spec regarding what container responses should include, as discussed in [solid/specification#227](https://github.com/solid/specification/issues/227#issuecomment-773945439). But this resembles the deprecated [globbing](https://github.com/solid/solid-spec/blob/master/api-rest.md#globbing-inlining-on-get) approach that was shown to cause performance issues.
 
 ## Conclusion
 
 Depending how you've implemented your Solid App, some of these can be very difficult or very easy to bypass. In my case, I was able to make most of them work with relatively little work (take a look at [the diffs above](#current-status)). For authentication, I had already decoupled the functionality; it was only a matter of [implementing a new authentication method](https://github.com/NoelDeMartin/ramen/blob/main/src/auth/ActivityPodsAuthenticator.ts). And since I'm using the Active Record design pattern with [Soukai](https://github.com/noeldemartin/soukai-solid), I didn't have to modify most of my application code.
 
-However, there are some issues that wouldn't be so irrelevant in a real application. The limitation of creating an individual document for each RDF resource causes serious performance problems. In this app, you can already see how "learning Ramen" is much slower than against other PODs. Among other things, this happens because just creating a single recipe requires 13 network requests (1 for the recipe itself, 1 for the metadata, and 11 for the instruction steps). In a real application, like [Umai](https://umai.noeldemartin.com), this would be much worse. Besides having more than a single recipe, modifications would create multiple [CRDT operations](https://vocab.noeldemartin.com/crdt/Operation). Subsequently, this would become a problem each time the application wants to synchronize the data with the POD. Because now the "recipes container" would contain hundreds of documents (most of which wouldn't be recipes), and that would translate to hundreds of network requests.
+However, there are some issues that wouldn't be so irrelevant in a real application. The limitation of creating an individual document for each RDF resource causes serious performance problems. In this app, you can already see how "learning Ramen" is much slower than against other PODs. Among other things, this happens because just creating a single recipe requires 12 network requests (1 for the recipe itself, 1 for the metadata, and 10 for the instruction steps). In a real application, like [Umai](https://umai.noeldemartin.com), this would be much worse. Besides having more than a single recipe, modifications would create multiple [CRDT operations](https://vocab.noeldemartin.com/crdt/Operation). Subsequently, this would become a problem each time the application wants to synchronize the data with the POD. Because now the "recipes container" would contain hundreds of documents (most of which wouldn't be recipes), and that would translate to hundreds of network requests.
 
 Because of this, and other issues described throughout this document, I'm refraining from adapting any of my real apps to ActivityPods. But I'm looking forward to the day they are addressed. Because like many others, I'm very excited about the project!
