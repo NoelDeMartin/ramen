@@ -13,7 +13,7 @@ export default defineConfig({
         Aerogel({
             name: 'Ramen',
             description: 'Can you make Ramen? Let\'s find out!',
-            baseUrl: 'https://ramen.noeldemartin.com',
+            baseUrl: process.env.VITE_BASE_URL ?? 'https://ramen.noeldemartin.com',
             themeColor: '#da532c',
             icons: {
                 '192x192': 'android-chrome-192x192.png',
