@@ -2,12 +2,14 @@ import type { Options } from '@aerogel/plugin-solid';
 
 import ActivityPodsAuthenticator from '@/auth/ActivityPodsAuthenticator';
 import RamenAuthenticator from '@/auth/RamenAuthenticator';
+import MetroAuthenticator from '@/auth/MetroAuthenticator';
 
 export const authConfig: Options = {
-    defaultAuthenticator: 'ramen',
+    defaultAuthenticator: 'metro',
     authenticators: {
         'activity-pods': new ActivityPodsAuthenticator(),
         'ramen': new RamenAuthenticator(),
+        'metro': new MetroAuthenticator(),
     },
     onUserProfileLoaded(profile, store) {
         profile.usesActivityPods = !!store.statement(
@@ -22,6 +24,7 @@ declare module '@aerogel/plugin-solid' {
     interface Authenticators {
         'activity-pods': ActivityPodsAuthenticator;
         ramen: RamenAuthenticator;
+        metro: MetroAuthenticator;
     }
 }
 
