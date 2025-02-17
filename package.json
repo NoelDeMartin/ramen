@@ -42,7 +42,7 @@
         "@aerogel/cli": "next",
         "@aerogel/cypress": "next",
         "@aerogel/histoire": "next",
-        "@aerogel/vite": "next",
+        "@aerogel/vite": "0.0.0-next.ca0bac96a565057e078f05ecdd71419637c5ce9f",
         "@iconify/json": "^2.2.134",
         "@noeldemartin/eslint-config-vue": "next",
         "@noeldemartin/scripts": "next",
