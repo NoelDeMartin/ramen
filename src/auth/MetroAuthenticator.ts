@@ -34,7 +34,7 @@ export default class MetroAuthenticator extends Authenticator {
         this.store.issuer = issuer;
 
         // TODO there is probably a better way to trigger the redirect...
-        await client.get(user?.webId);
+        await client.get(user?.storageUrls[0] + 'this-does-not-exist');
 
         // Browser should redirect, so just make it wait for a while.
         await after({ seconds: 60 });
