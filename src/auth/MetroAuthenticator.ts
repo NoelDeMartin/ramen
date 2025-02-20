@@ -3,7 +3,7 @@ import AerogelSolid from 'virtual:aerogel-solid';
 import metro from '@muze-nl/metro';
 import metroOidc from '@muze-nl/metro-oidc';
 import { Authenticator, Solid } from '@aerogel/plugin-solid';
-import { after, required } from '@noeldemartin/utils';
+import { required } from '@noeldemartin/utils';
 import type { AuthSession } from '@aerogel/plugin-solid';
 import type { ClosureArgs } from '@noeldemartin/utils';
 import type { Reactive } from 'vue';
@@ -33,13 +33,20 @@ export default class MetroAuthenticator extends Authenticator {
         this.store.webId = user?.webId;
         this.store.issuer = issuer;
 
-        // TODO there is probably a better way to trigger the redirect...
+        // Trigger authentication if necessary
         await client.get(user?.storageUrls[0] + 'this-does-not-exist');
 
-        // Browser should redirect, so just make it wait for a while.
-        await after({ seconds: 60 });
+        // Log in
+        const session: AuthSession = {
+            user: await Solid.requireUserProfile(required(this.store.webId)),
+            loginUrl: required(this.store.issuer),
+            authenticator: this,
+        };
 
-        throw new Error('Browser should have redirected, but it didn\'t');
+        await this.initAuthenticatedFetch((...args: ClosureArgs) => client.fetch(...args));
+        await this.startSession(session);
+
+        return session;
     }
 
     public async logout(): Promise<void> {
