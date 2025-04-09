@@ -17,7 +17,7 @@ The application has been tested with the following implementations:
 <!-- prettier-ignore-start -->
 | Solid Server                                                              | Status                      | Last tested | Comments |
 | ------------------------------------------------------------------------- | --------------------------- | ----------- | -------- |
-| [LSS](https://lss.noeldemartin.com/)                                      | :warning: Partially working | 09/04/2025  | Private read/write operations mostly work, but it doesn't support any of the authorization schemes (WAC, ACP, etc.) |
+| [LSS](https://lss.noeldemartin.com/)                                      | :warning: Partially working | 09/04/2025  | Private read/write operations mostly work, but it doesn't support any of the authorization schemes (WAC, ACP, etc). |
 | [iGrant.io](https://datapod.igrant.io/)                                   | :thumbsup: Working          | 27/02/2025  |          |
 | [ActivityPods](https://activitypods.org/) 2.0.4                           | :warning: Partially working | 21/12/2024  | The server implements a subset of the Solid Specification, and requires using [SAI](https://solid.github.io/data-interoperability-panel/specification/) and a server-side component. Learn more about it in my full [ActivityPods Compatibility Report](./docs/activitypods.md). |
 | [TrinPod](https://trinpod.eu/)                                            | :thumbsup: Working          | 30/01/2024  |          |
