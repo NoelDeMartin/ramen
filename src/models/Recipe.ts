@@ -8,8 +8,8 @@ import Model from './Recipe.schema';
 
 export default class Recipe extends Model {
 
-    public declare instructions?: RecipeInstructionsStep[];
-    public declare relatedInstructions: SolidBelongsToManyRelation<
+    declare public instructions?: RecipeInstructionsStep[];
+    declare public relatedInstructions: SolidBelongsToManyRelation<
         Recipe,
         RecipeInstructionsStep,
         typeof RecipeInstructionsStep

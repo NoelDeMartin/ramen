@@ -1,0 +1,5 @@
+onlyBuiltDependencies:
+    - cypress
+
+overrides:
+    '@noeldemartin/solid-utils': '$@noeldemartin/solid-utils'

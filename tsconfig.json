@@ -1,16 +1,9 @@
 {
+    "extends": "@vue/tsconfig/tsconfig.dom.json",
     "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
-        "moduleResolution": "node",
-        "strict": true,
-        "skipLibCheck": true,
-        "noUncheckedIndexedAccess": true,
-        "jsx": "preserve",
-        "resolveJsonModule": true,
-        "esModuleInterop": true,
-        "lib": ["esnext", "dom"],
         "baseUrl": ".",
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
         "paths": {
             "@/*": ["./src/*"]
         }

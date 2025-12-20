@@ -6,8 +6,8 @@ import Recipe from '@/models/Recipe';
 
 export default class RecipesContainer extends SolidContainer {
 
-    public declare recipes?: Recipe[];
-    public declare relatedRecipes: SolidContainsRelation<RecipesContainer, Recipe, typeof Recipe>;
+    declare public recipes?: Recipe[];
+    declare public relatedRecipes: SolidContainsRelation<RecipesContainer, Recipe, typeof Recipe>;
 
     public recipesRelationship(): Relation {
         return this.contains(Recipe);

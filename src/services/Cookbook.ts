@@ -29,6 +29,7 @@ export class CookbookService extends Service {
 
         await this.initializeContainer(container);
         await container.register(typeIndex.url, Recipe);
+        await Solid.refreshUserProfile();
     }
 
     public async learnRamen(): Promise<void> {

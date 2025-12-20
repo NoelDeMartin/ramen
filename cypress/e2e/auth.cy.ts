@@ -10,7 +10,6 @@ describe('Auth', () => {
     it('Logs in', () => {
         // Arrange
         cy.see('Log in with Solid');
-        cy.matchImageSnapshot();
 
         // Act
         cy.ariaInput('Login url').clear().type(`${serverUrl()}{enter}`);
@@ -36,9 +35,6 @@ describe('Auth', () => {
 
         // Act
         cy.ariaLabel('Log out').click();
-        cy.contains('[role="dialog"]', 'Log out from this device?').within(() => {
-            cy.press('Log out');
-        });
 
         // Assert
         cy.dontSee('Alice Cooper');

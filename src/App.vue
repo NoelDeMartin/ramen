@@ -1,9 +1,9 @@
 <template>
-    <AGAppLayout class="bg-yellow-50">
+    <AppLayout class="bg-yellow-50">
         <div class="flex h-screen w-screen flex-col items-center overflow-auto">
             <AppHeader />
             <AppMain />
             <AppFooter />
         </div>
-    </AGAppLayout>
+    </AppLayout>
 </template>

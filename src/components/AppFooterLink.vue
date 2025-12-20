@@ -1,5 +1,5 @@
 <template>
-    <AGHeadlessButton class="underline hover:text-gray-900">
+    <HeadlessButton class="underline hover:text-gray-900">
         <slot />
-    </AGHeadlessButton>
+    </HeadlessButton>
 </template>

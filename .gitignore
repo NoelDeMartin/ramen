@@ -1,4 +1,5 @@
 /dist
 /node_modules
-/solid-data
+/solid
+/src/types/components.d.ts
 .env.production

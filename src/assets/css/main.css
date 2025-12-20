@@ -1,0 +1,12 @@
+@import '@aerogel/core';
+@import '@aerogel/plugin-solid';
+
+@import '../fonts/ubuntu.css' layer(base);
+
+@theme {
+    --font-*: initial;
+    --font-ubuntu: 'Ubuntu', system-ui, sans-serif;
+    --color-solid-500: #7c4dff;
+    --color-solid-600: #6437e3;
+    --color-primary: oklch(69.6% 0.17 162.48);
+}

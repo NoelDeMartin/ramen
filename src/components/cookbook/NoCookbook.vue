@@ -1,17 +1,17 @@
 <template>
-    <i-twemoji-cook class="h-20 w-20" />
-    <AGMarkdown lang-key="cookbook.notFound" class="text-center text-3xl font-light leading-snug" />
-    <AGForm
+    <i-twemoji-cook class="size-20" />
+    <Markdown lang-key="cookbook.notFound" class="text-center text-3xl leading-snug font-light" />
+    <Form
         :form="form"
         class="mt-6 flex flex-col items-center gap-2 md:mt-0 md:flex-row"
         @submit="$ui.loading($t('cookbook.creating'), $cookbook.create(form.url))"
     >
-        <TextButton submit>
+        <Button submit>
             {{ $t('cookbook.create') }}
-        </TextButton>
+        </Button>
         <span>{{ $t('cookbook.createSeparator') }}</span>
         <InlineSelect name="url" :options="options" />
-    </AGForm>
+    </Form>
 </template>
 
 <script setup lang="ts">
