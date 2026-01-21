@@ -1,10 +1,8 @@
 import { facade, tap } from '@noeldemartin/utils';
-import { Metadata, setExperimentalFlags, usingExperimentalActivityPods } from 'soukai-solid';
 import { Solid } from '@aerogel/plugin-solid';
 
 import ramenJson from '@/assets/json/ramen.json';
 import Recipe from '@/models/Recipe';
-import RecipeInstructionsStep from '@/models/RecipeInstructionsStep';
 import RecipesContainer from '@/models/RecipesContainer';
 
 import Service from './Cookbook.state';
@@ -37,12 +35,6 @@ export class CookbookService extends Service {
             return;
         }
 
-        if (usingExperimentalActivityPods()) {
-            await this.learnRamenInActivityPods();
-
-            return;
-        }
-
         const { instructions, ...attributes } = ramenJson;
 
         this.ramen = await tap(new Recipe(attributes), async (ramen) => {
@@ -55,10 +47,6 @@ export class CookbookService extends Service {
     protected async boot(): Promise<void> {
         await Solid.booted;
 
-        if (Solid.user?.usesActivityPods) {
-            await this.enableActivityPods();
-        }
-
         if (Solid.isLoggedIn()) {
             await this.loadModels();
         }
@@ -68,11 +56,6 @@ export class CookbookService extends Service {
         this.container = container;
 
         await this.container.loadRelation('recipes');
-
-        if (usingExperimentalActivityPods() && this.container) {
-            Metadata.collection = this.container.url;
-            RecipeInstructionsStep.collection = this.container.url;
-        }
     }
 
     protected async loadModels(): Promise<void> {
@@ -85,29 +68,6 @@ export class CookbookService extends Service {
         container && (await this.initializeContainer(container));
 
         this.ramen = this.container?.recipes?.find((recipe) => recipe.isRamen()) ?? null;
-    }
-
-    protected async enableActivityPods(): Promise<void> {
-        setExperimentalFlags({ activityPods: true });
-
-        Recipe.replaceRdfPrefixes({ 'https://schema.org/': 'http://schema.org/' });
-        RecipeInstructionsStep.replaceRdfPrefixes({ 'https://schema.org/': 'http://schema.org/' });
-    }
-
-    protected async learnRamenInActivityPods(): Promise<void> {
-        const { instructions, ...attributes } = ramenJson;
-        const ramen = new Recipe(attributes);
-
-        await Promise.all(
-            instructions.map((text, index) => {
-                return ramen.relatedInstructions.create({ position: index + 1, text });
-            }),
-        );
-
-        await this.container?.relatedRecipes.save(ramen);
-        await ramen.metadata.save();
-
-        this.ramen = ramen;
     }
 
 }
