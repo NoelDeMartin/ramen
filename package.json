@@ -28,10 +28,12 @@
         "@tailwindcss/typography": "^0.5.16",
         "oauth4webapi": "^2.17.0",
         "soukai": "next",
+        "soukai-bis": "next",
         "soukai-solid": "next",
         "tailwindcss": "^4.1.1",
         "vue": "^3.5.13",
-        "vue-i18n": "^11.1.2"
+        "vue-i18n": "^11.1.2",
+        "zod": "^4.3.5"
     },
     "devDependencies": {
         "@aerogel/cli": "next",

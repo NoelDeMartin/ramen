@@ -23,7 +23,7 @@ export class CookbookService extends Service {
         }
 
         const typeIndex = await Solid.findOrCreatePrivateTypeIndex();
-        const container = await RecipesContainer.at(url).create({ name: 'Cookbook' });
+        const container = await RecipesContainer.createAt(url, { name: 'Cookbook' });
 
         await this.initializeContainer(container);
         await container.register(typeIndex.url, Recipe);
@@ -59,11 +59,7 @@ export class CookbookService extends Service {
     }
 
     protected async loadModels(): Promise<void> {
-        const typeIndexes = await Promise.all([Solid.findPublicTypeIndex(), Solid.findPrivateTypeIndex()]);
-        const containers = await Promise.all(
-            typeIndexes.map((typeIndex) => typeIndex?.findContainer(Recipe, RecipesContainer)),
-        );
-        const container = containers.find((model) => !!model) ?? null;
+        const container = await Solid.findRegisteredContainer(Recipe, RecipesContainer);
 
         container && (await this.initializeContainer(container));
 

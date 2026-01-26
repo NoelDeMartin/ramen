@@ -1,17 +1,11 @@
-import { FieldType } from 'soukai';
-import { defineSolidModelSchema } from 'soukai-solid';
+import { defineSchema } from 'soukai-bis';
+import { number, string } from 'zod';
 
-export default defineSolidModelSchema({
+export default defineSchema({
     rdfContext: 'https://schema.org/',
-    rdfsClass: 'HowToStep',
+    rdfClass: 'HowToStep',
     fields: {
-        text: {
-            type: FieldType.String,
-            required: true,
-        },
-        position: {
-            type: FieldType.Number,
-            required: true,
-        },
+        text: string(),
+        position: number(),
     },
 });

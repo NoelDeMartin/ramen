@@ -3,3 +3,7 @@ onlyBuiltDependencies:
 
 overrides:
     '@noeldemartin/solid-utils': '$@noeldemartin/solid-utils'
+    '@noeldemartin/utils': '$@noeldemartin/utils'
+    'soukai': '$soukai'
+    'soukai-bis': '$soukai-bis'
+    'soukai-solid': '$soukai-solid'

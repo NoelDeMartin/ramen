@@ -15,6 +15,7 @@ export default defineConfig({
         Aerogel({
             name: 'Ramen',
             description: 'Can you make Ramen? Let\'s find out!',
+            soukaiBis: true,
             baseUrl: process.env.VITE_BASE_URL ?? 'https://ramen.noeldemartin.com',
             themeColor: '#da532c',
             icons: {

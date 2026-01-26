@@ -1,28 +1,19 @@
 import { stringToSlug } from '@noeldemartin/utils';
-import type { Relation } from 'soukai';
-import type { SolidBelongsToManyRelation } from 'soukai-solid';
-
-import RecipeInstructionsStep from '@/models/RecipeInstructionsStep';
+import type { BelongsToManyRelation } from 'soukai-bis';
 
 import Model from './Recipe.schema';
+import type RecipeInstructionsStep from './RecipeInstructionsStep';
 
 export default class Recipe extends Model {
 
-    declare public instructions?: RecipeInstructionsStep[];
-    declare public relatedInstructions: SolidBelongsToManyRelation<
-        Recipe,
+    declare public relatedInstructions: BelongsToManyRelation<
+        this,
         RecipeInstructionsStep,
         typeof RecipeInstructionsStep
     >;
 
     public isRamen(): boolean {
         return !!this.name && stringToSlug(this.name).includes('ramen');
-    }
-
-    public instructionsRelationship(): Relation {
-        return this.belongsToMany(RecipeInstructionsStep, 'instructionStepUrls')
-            .onDelete('cascade')
-            .usingSameDocument(true);
     }
 
 }

@@ -1,13 +1,13 @@
-import { bootSolidModels } from 'soukai-solid';
+import 'soukai-bis/patch-zod';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { InMemoryEngine, bootModels, setEngine } from 'soukai';
+import { InMemoryEngine, bootCoreModels, bootModels, setEngine } from 'soukai-bis';
 
 import Recipe from './Recipe';
 
 describe('Recipe model', () => {
 
     beforeEach(async () => {
-        bootSolidModels();
+        bootCoreModels(true);
         bootModels({ Recipe });
         setEngine(new InMemoryEngine());
     });
