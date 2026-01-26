@@ -20,6 +20,8 @@
                 </Link>
             </div>
         </div>
+        <div class="grow" />
+        <ErrorLogs />
         <Button
             variant="ghost"
             class="translate-x-2 rounded-full"
