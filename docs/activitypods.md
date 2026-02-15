@@ -6,6 +6,9 @@ This document only talks about my specific challenges adapting this app. You can
 
 ## Current status
 
+> [!NOTE]
+> **2026 Update:** Ramen no longer works with ActivityPods, because I stopped hosting the required server-side component. It's been more than a year since I wrote this report, but as far as I know, all of the issues I highlighted still remain.
+
 With the current implementation, the application works with ActivityPods 🥳. However, you'll notice that it gets stuck during the installation process, and you need to go back to the app to retry the log in process. This is likely due to some [additional requirements](#additional-requirements), but I decided not to implement everything as this is likely to change in the future (and many of those are outside the scope of the Solid spec).
 
 All in all, if you just want to see the code, these are all the changes I had to do:
