@@ -7,6 +7,11 @@ settings:
 overrides:
   '@noeldemartin/solid-utils': next
 
+patchedDependencies:
+  soukai-solid@0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582:
+    hash: 0b9c6bfc96342b58ce458f6cc493e0c3260a4cf48482a4ecef600a1edf1dfd32
+    path: patches/soukai-solid@0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582.patch
+
 importers:
 
   .:
@@ -46,7 +51,7 @@ importers:
         version: 0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582
       soukai-solid:
         specifier: next
-        version: 0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582(soukai@0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582)(web-streams-polyfill@3.3.3)
+        version: 0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582(patch_hash=0b9c6bfc96342b58ce458f6cc493e0c3260a4cf48482a4ecef600a1edf1dfd32)(soukai@0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582)(web-streams-polyfill@3.3.3)
       tailwindcss:
         specifier: ^4.1.1
         version: 4.1.18
@@ -6717,7 +6722,7 @@ snapshots:
       '@noeldemartin/utils': 0.7.3
       solid-auth-client: 2.4.1(encoding@0.1.13)
       soukai: 0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582
-      soukai-solid: 0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582(soukai@0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582)(web-streams-polyfill@3.3.3)
+      soukai-solid: 0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582(patch_hash=0b9c6bfc96342b58ce458f6cc493e0c3260a4cf48482a4ecef600a1edf1dfd32)(soukai@0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582)(web-streams-polyfill@3.3.3)
     transitivePeerDependencies:
       - encoding
       - web-streams-polyfill
@@ -14552,7 +14557,7 @@ snapshots:
     transitivePeerDependencies:
       - web-streams-polyfill
 
-  soukai-solid@0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582(soukai@0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582)(web-streams-polyfill@3.3.3):
+  soukai-solid@0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582(patch_hash=0b9c6bfc96342b58ce458f6cc493e0c3260a4cf48482a4ecef600a1edf1dfd32)(soukai@0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582)(web-streams-polyfill@3.3.3):
     dependencies:
       '@noeldemartin/solid-utils': 0.6.1-next.0d15181b9561088547ef2d0f22a04aef565e06bb(web-streams-polyfill@3.3.3)
       '@noeldemartin/utils': 0.7.3

@@ -1,5 +1,14 @@
+allowBuilds:
+  core-js: set this to true or false
+  cypress: set this to true or false
+  esbuild: set this to true or false
+  vue-demi: set this to true or false
+
 onlyBuiltDependencies:
     - cypress
 
 overrides:
     '@noeldemartin/solid-utils': '$@noeldemartin/solid-utils'
+
+patchedDependencies:
+    soukai-solid@0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582: patches/soukai-solid@0.7.1-next.cc2e3a3f8808062c2c24c91cb710c5e5e38d1582.patch
