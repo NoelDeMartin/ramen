@@ -17,13 +17,13 @@ The application has been tested with the following implementations:
 <!-- prettier-ignore-start -->
 | Solid Server                                                              | Status                      | Last tested | Comments |
 | ------------------------------------------------------------------------- | --------------------------- | ----------- | -------- |
+| [ESS](https://docs.inrupt.com/ess)                                        | :thumbsup: Working          | 21/11/2026  | Performance isn't great for large collections of data given the [lack of document metadata](https://github.com/solid/specification/issues/227#issuecomment-773945439). |
 | [LSS](https://lss.noeldemartin.com/)                                      | :warning: Partially working | 09/04/2025  | Private read/write operations mostly work, but it doesn't support any of the authorization schemes (WAC, ACP, etc). |
 | [iGrant.io](https://datapod.igrant.io/)                                   | :thumbsup: Working          | 27/02/2025  |          |
 | [ActivityPods](https://activitypods.org/) 2.0.4                           | :no_entry: Not working      | 21/12/2024  | The server implements a subset of the Solid Specification, and requires using [SAI](https://solid.github.io/data-interoperability-panel/specification/) and a server-side component (which I'm no longer running). Learn more about it in my full [ActivityPods Compatibility Report](./docs/activitypods.md). |
 | [TrinPod](https://trinpod.eu/)                                            | :thumbsup: Working          | 30/01/2024  |          |
 | [NSS](https://github.com/solid/node-solid-server) 5.7.7                   | :thumbsup: Working          | 08/12/2023  |          |
 | [CSS](https://github.com/CommunitySolidServer/CommunitySolidServer) 7.0.1 | :thumbsup: Working          | 08/12/2023  |          |
-| [ESS](https://inrupt.com/products/enterprise-solid-server/)               | :thumbsup: Working          | 08/12/2023  |          |
 | [use.id](https://use.id/)                                                 | :no_entry: Not working      | 08/12/2023  | The server doesn't expose any [writable profiles](https://solid.github.io/webid-profile/) (nor extended profiles), so the app fails trying to create a [type index](https://solid.github.io/type-indexes/). |
 | [PHP Solid Server](https://github.com/pdsinterop/php-solid-server)        | :warning: Partially working | 28/12/2020  | The server requires multiple fixes to work properly, reported here: [pdsinterop/php-solid-server#42](https://github.com/pdsinterop/php-solid-server/issues/42). |
 <!-- prettier-ignore-end -->
